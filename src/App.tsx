@@ -6,8 +6,10 @@ import {
   useXRSpace,
   XRSpace as XRSpaceProvider,
 } from "@react-three/xr";
-import { useState } from "react";
+import { Text } from "@react-three/drei";
+import { useEffect, useState } from "react";
 import { getPoseName } from "./utils";
+import { usePreviousValue } from "./hooks";
 
 const store = createXRStore({
   emulate: {
@@ -16,8 +18,69 @@ const store = createXRStore({
   },
 });
 
+function Countdown({
+  time,
+  poseName,
+}: {
+  time: number;
+  poseName: string | undefined;
+}) {
+  const [ms, setMs] = useState<number>(time);
+  const previousPoseName = usePreviousValue(poseName);
+  const [matched, setMatched] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMs(time);
+    setMatched(false);
+    const interval = setInterval(
+      () =>
+        setMs((value) => {
+          if (value <= 0) {
+            setMatched(false);
+            return time;
+          }
+
+          return value - 1_000;
+        }),
+      1_000
+    );
+
+    return () => clearInterval(interval);
+  }, [time]);
+
+  function renderText() {
+    if (ms <= 0) return "GO!";
+
+    return (ms / 1_000).toFixed(0);
+  }
+
+  const isReady = ms <= 0;
+
+  useEffect(() => {
+    if (!isReady) return;
+    console.log({ poseName, isReady, previousPoseName });
+    if (poseName === "clicking" && previousPoseName !== "clicking")
+      setMatched(true);
+  }, [isReady, poseName, previousPoseName]);
+
+  return (
+    <>
+      <Text
+        position={[0, 2.5, -2]}
+        fontSize={0.2}
+        color={matched ? "blue" : "white"}
+        anchorX="center"
+        anchorY="middle"
+      >
+        {renderText()}
+      </Text>
+    </>
+  );
+}
+
 function Inside() {
   const [red, setRed] = useState(false);
+  const [poseName, setPoseName] = useState<string>();
 
   const referenceSpace = useXRSpace();
   const sourceState = useXRInputSourceState("hand", "left");
@@ -27,23 +90,37 @@ function Inside() {
 
     const hand = sourceState.inputSource.hand;
 
-    console.log({ pose: getPoseName(hand, frame, referenceSpace) });
+    setPoseName(getPoseName(hand, frame, referenceSpace));
   });
   return (
-    <mesh
-      castShadow
-      receiveShadow
-      scale={0.5}
-      position={[0, 1, -1]}
-      onClick={() => setRed(!red)}
-    >
-      <boxGeometry />
-      <meshStandardMaterial
-        emissiveIntensity={1}
-        emissive={red ? "red" : "blue"}
-        toneMapped={false}
-      />
-    </mesh>
+    <>
+      <mesh
+        castShadow
+        receiveShadow
+        scale={0.5}
+        position={[0, 1, -1]}
+        onClick={() => setRed(!red)}
+      >
+        <boxGeometry />
+        <meshStandardMaterial
+          emissiveIntensity={1}
+          emissive={red ? "red" : "blue"}
+          toneMapped={false}
+        />
+      </mesh>
+      <Countdown time={5_000} poseName={poseName} />
+      {poseName && (
+        <Text
+          position={[0, 1.5, -2]}
+          fontSize={0.2}
+          color="white"
+          anchorX="center"
+          anchorY="middle"
+        >
+          {poseName}
+        </Text>
+      )}
+    </>
   );
 }
 
