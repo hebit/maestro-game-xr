@@ -7,9 +7,12 @@ import {
   XRSpace as XRSpaceProvider,
 } from "@react-three/xr";
 import { Text } from "@react-three/drei";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getPoseName } from "./utils";
-import { usePreviousValue } from "./hooks";
+import { usePoseName, usePreviousValue } from "./hooks";
+import { GestureDetector } from "./gesture-detector";
+import { Mesh } from "three";
+import { PointingDetector } from "./pointing-detector";
 
 const store = createXRStore({
   emulate: {
@@ -58,7 +61,7 @@ function Countdown({
 
   useEffect(() => {
     if (!isReady) return;
-    console.log({ poseName, isReady, previousPoseName });
+    // console.log({ poseName, isReady, previousPoseName });
     if (poseName === "clicking" && previousPoseName !== "clicking")
       setMatched(true);
   }, [isReady, poseName, previousPoseName]);
@@ -80,18 +83,8 @@ function Countdown({
 
 function Inside() {
   const [red, setRed] = useState(false);
-  const [poseName, setPoseName] = useState<string>();
+  const poseName = usePoseName();
 
-  const referenceSpace = useXRSpace();
-  const sourceState = useXRInputSourceState("hand", "left");
-
-  useFrame((_, __, frame) => {
-    if (!sourceState?.inputSource || !frame) return null;
-
-    const hand = sourceState.inputSource.hand;
-
-    setPoseName(getPoseName(hand, frame, referenceSpace));
-  });
   return (
     <>
       <mesh
@@ -108,8 +101,11 @@ function Inside() {
           toneMapped={false}
         />
       </mesh>
-      <Countdown time={5_000} poseName={poseName} />
-      {poseName && (
+      {/* <Countdown time={5_000} poseName={poseName} /> */}
+      <GestureDetector />
+
+      {/* <PointingDetector /> */}
+      {/*  {poseName && (
         <Text
           position={[0, 1.5, -2]}
           fontSize={0.2}
@@ -119,7 +115,7 @@ function Inside() {
         >
           {poseName}
         </Text>
-      )}
+      )} */}
     </>
   );
 }
