@@ -13,6 +13,7 @@ import { usePoseName, usePreviousValue } from "./hooks";
 import { GestureDetector } from "./gesture-detector";
 import { Mesh } from "three";
 import { PointingDetector } from "./pointing-detector";
+import { Song } from "./song";
 
 const store = createXRStore({
   emulate: {
@@ -103,6 +104,7 @@ function Inside() {
       </mesh>
       {/* <Countdown time={5_000} poseName={poseName} /> */}
       <GestureDetector />
+      <Song />
 
       {/* <PointingDetector /> */}
       {/*  {poseName && (
