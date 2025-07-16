@@ -7,18 +7,19 @@ import {
   XRSpace as XRSpaceProvider,
 } from "@react-three/xr";
 import { Text } from "@react-three/drei";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getPoseName } from "./utils";
 import { usePoseName, usePreviousValue } from "./hooks";
-import { GestureDetector } from "./gesture-detector";
-import { Mesh } from "three";
-import { PointingDetector } from "./pointing-detector";
+import { Canva, PointingDetector } from "./components";
 import { Song } from "./song";
+import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
   emulate: {
     primaryInputMode: "hand",
-    syntheticEnvironment: false,
+    syntheticEnvironment: "office_large",
+    //syntheticEnvironment: false,
+    // syntheticEnvironment: false,
   },
 });
 
@@ -82,29 +83,53 @@ function Countdown({
   );
 }
 
-function Inside() {
-  const [red, setRed] = useState(false);
-  const poseName = usePoseName();
+function Game() {
+  const [ms, setMs] = useState<number>(5_000);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () =>
+        setMs((value) => {
+          if (value <= 0) {
+            return 0;
+          }
+
+          return value - 1_000;
+        }),
+      1_000
+    );
+
+    return () => clearInterval(interval);
+  }, []);
+
+  function renderText() {
+    if (ms <= 0) return "GO!";
+
+    return (ms / 1_000).toFixed(0);
+  }
+
+  const started = ms <= 0;
 
   return (
     <>
-      <mesh
-        castShadow
-        receiveShadow
-        scale={0.5}
-        position={[0, 1, -1]}
-        onClick={() => setRed(!red)}
-      >
-        <boxGeometry />
-        <meshStandardMaterial
-          emissiveIntensity={1}
-          emissive={red ? "red" : "blue"}
-          toneMapped={false}
-        />
-      </mesh>
+      {started ? (
+        <TimelineContextProvider>
+          <Canva />
+        </TimelineContextProvider>
+      ) : (
+        <Text
+          position={[0, 2.5, -2]}
+          fontSize={0.2}
+          color={"blue"}
+          anchorX="center"
+          anchorY="middle"
+        >
+          {renderText()}
+        </Text>
+      )}
+
       {/* <Countdown time={5_000} poseName={poseName} /> */}
-      <GestureDetector />
-      <Song />
+      {/* <GestureDetector /> */}
 
       {/* <PointingDetector /> */}
       {/*  {poseName && (
@@ -126,10 +151,11 @@ export default function App() {
   return (
     <>
       <button onClick={() => store.enterVR()}>Enter VR</button>
+
       <Canvas>
         <XR store={store}>
           <XRSpaceProvider space={"local-floor"}>
-            <Inside />
+            <Game />
           </XRSpaceProvider>
         </XR>
       </Canvas>

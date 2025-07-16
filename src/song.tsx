@@ -1,5 +1,5 @@
 import { Text } from "@react-three/drei";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 import * as Tone from "tone";
 
@@ -51,17 +51,21 @@ const Button = ({ position, onClick, label }: ButtonProps) => {
 };
 
 export function Song() {
+  const player = useMemo(() => {
+    return new Tone.Player({
+      url: "./varias-queixas.mp3",
+      // loop: true,
+      autostart: true,
+    }).toDestination();
+  }, []);
+
   const playSong = useCallback(() => {
-    const synth = new Tone.Synth().toDestination();
-    const now = Tone.now();
-    synth.triggerAttackRelease("C4", "8n", now);
-    synth.triggerAttackRelease("E4", "8n", now + 0.5);
-    synth.triggerAttackRelease("G4", "8n", now + 1);
+    player.start();
   }, []);
 
   return (
     <>
-      <Button onClick={playSong} label="Play" position={[0, 2, -2]} />
+      {/* <Button onClick={playSong} label="Play" position={[0, 2, -2]} /> */}
     </>
   );
 }
