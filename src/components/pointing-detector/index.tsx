@@ -1,11 +1,10 @@
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useXR, useXRInputSourceState, useXRSpace } from "@react-three/xr";
-import React, { useEffect, useRef, useState } from "react";
-import { Text } from "@react-three/drei";
+import React, { useRef, useState } from "react";
 import { usePoseName } from "../../hooks";
 import { TimelineEvent } from "../../contexts";
-import { addSeconds, differenceInMilliseconds } from "date-fns";
+import { differenceInMilliseconds } from "date-fns";
 import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 
 function usePointinDetector(

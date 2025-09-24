@@ -1,5 +1,5 @@
 import { Text } from "@react-three/drei";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import * as Tone from "tone";
 
@@ -9,7 +9,7 @@ interface ButtonProps {
   label: string;
 }
 
-const Button = ({ position, onClick, label }: ButtonProps) => {
+export const Button = ({ position, onClick, label }: ButtonProps) => {
   const meshRef = useRef(null);
   const [hovered, setHovered] = useState(false);
 
@@ -51,7 +51,7 @@ const Button = ({ position, onClick, label }: ButtonProps) => {
 };
 
 export function Song() {
-  const player = useMemo(() => {
+  useMemo(() => {
     return new Tone.Player({
       url: "./varias-queixas.mp3",
       // loop: true,
@@ -59,13 +59,5 @@ export function Song() {
     }).toDestination();
   }, []);
 
-  const playSong = useCallback(() => {
-    player.start();
-  }, []);
-
-  return (
-    <>
-      {/* <Button onClick={playSong} label="Play" position={[0, 2, -2]} /> */}
-    </>
-  );
+  return null;
 }

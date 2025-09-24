@@ -1,17 +1,8 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import {
-  XR,
-  createXRStore,
-  useXRInputSourceState,
-  useXRSpace,
-  XRSpace as XRSpaceProvider,
-} from "@react-three/xr";
+import { Canvas } from "@react-three/fiber";
+import { XR, createXRStore, XRSpace as XRSpaceProvider } from "@react-three/xr";
 import { Text } from "@react-three/drei";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { getPoseName } from "./utils";
-import { usePoseName, usePreviousValue } from "./hooks";
-import { Canva, PointingDetector } from "./components";
-import { Song } from "./song";
+import { useEffect, useState } from "react";
+import { Canva } from "./components";
 import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
@@ -22,66 +13,6 @@ const store = createXRStore({
     // syntheticEnvironment: false,
   },
 });
-
-function Countdown({
-  time,
-  poseName,
-}: {
-  time: number;
-  poseName: string | undefined;
-}) {
-  const [ms, setMs] = useState<number>(time);
-  const previousPoseName = usePreviousValue(poseName);
-  const [matched, setMatched] = useState<boolean>(false);
-
-  useEffect(() => {
-    setMs(time);
-    setMatched(false);
-    const interval = setInterval(
-      () =>
-        setMs((value) => {
-          if (value <= 0) {
-            setMatched(false);
-            return time;
-          }
-
-          return value - 1_000;
-        }),
-      1_000
-    );
-
-    return () => clearInterval(interval);
-  }, [time]);
-
-  function renderText() {
-    if (ms <= 0) return "GO!";
-
-    return (ms / 1_000).toFixed(0);
-  }
-
-  const isReady = ms <= 0;
-
-  useEffect(() => {
-    if (!isReady) return;
-    // console.log({ poseName, isReady, previousPoseName });
-    if (poseName === "clicking" && previousPoseName !== "clicking")
-      setMatched(true);
-  }, [isReady, poseName, previousPoseName]);
-
-  return (
-    <>
-      <Text
-        position={[0, 2.5, -2]}
-        fontSize={0.2}
-        color={matched ? "blue" : "white"}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {renderText()}
-      </Text>
-    </>
-  );
-}
 
 function Game() {
   const [ms, setMs] = useState<number>(5_000);

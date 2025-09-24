@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import * as THREE from "three";
 import { useGestureDirection } from "./hooks";
 import { usePoseName } from "../../hooks";
 import { TimelineEvent } from "../../contexts";

@@ -7,7 +7,7 @@ import { GestureDetector } from "../gesture-detector";
 import { Song } from "../../song";
 
 export function Canva() {
-  const { events, startTime } = useTimeline();
+  const { events } = useTimeline();
 
   const [candidateEvents, setCandidateEvents] = useState<typeof events>([]);
 
