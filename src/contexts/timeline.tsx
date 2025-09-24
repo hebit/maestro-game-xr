@@ -49,49 +49,49 @@ const eventsBySong = {
       step: 1_900, // 1.9s -> 1900ms
     },
     {
-      id: "hash-12890",
+      id: "hash-1",
       hand: "right",
       move: "move-baton-down",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 4_500, // 1.9s -> 1900ms
     },
     {
-      id: "hash-1",
+      id: "hash-2",
       hand: "left",
       move: "pointing",
       position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 8_900, // 1.9s -> 1900ms
     },
     {
-      id: "hash-128901",
+      id: "hash-3",
       hand: "right",
       move: "move-baton-up",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 13_000, // 1.9s -> 1900ms
     },
     {
-      id: "hash-128902",
+      id: "hash-4",
       hand: "right",
-      move: "move-baton-right",
+      move: "move-baton-left",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 16_500, // 1.9s -> 1900ms
+      step: 14_500, // 1.9s -> 1900ms
     },
     {
-      id: "hash-2",
+      id: "hash-5",
       hand: "left",
       move: "pointing",
       position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 19_900, // 1.9s -> 1900ms
     },
     {
-      id: "hash-3",
+      id: "hash-6",
       hand: "left",
       move: "pointing",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 21_900, // 1.9s -> 1900ms
     },
     {
-      id: "hash-4",
+      id: "hash-7",
       hand: "left",
       move: "pointing",
       position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
