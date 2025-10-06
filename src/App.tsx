@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { XR, createXRStore, XRSpace as XRSpaceProvider } from "@react-three/xr";
 import { Text } from "@react-three/drei";
 import { useEffect, useState } from "react";
-import { Canva } from "./components";
+import { Canva, Skybox } from "./components";
 import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
@@ -86,6 +86,7 @@ export default function App() {
       <Canvas>
         <XR store={store}>
           <XRSpaceProvider space={"local-floor"}>
+            <Skybox />
             <Game />
           </XRSpaceProvider>
         </XR>
