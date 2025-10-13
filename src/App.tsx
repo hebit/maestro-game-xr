@@ -34,6 +34,9 @@ const store = createXRStore({
   bodyTracking: false,
   handTracking: true,
   controller: false,
+  customSessionInit: {
+    optionalFeatures: ["hand-tracking"],
+  },
   /*   emulate: {
     primaryInputMode: "hand",
 
