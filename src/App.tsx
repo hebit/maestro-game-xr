@@ -1,5 +1,11 @@
 import { Canvas } from "@react-three/fiber";
-import { XR, createXRStore, XRSpace as XRSpaceProvider } from "@react-three/xr";
+import {
+  XR,
+  createXRStore,
+  XRSpace as XRSpaceProvider,
+  useXRInputSourceEvent,
+  useXRInputSourceState,
+} from "@react-three/xr";
 import { Text } from "@react-three/drei";
 import {
   useEffect,
@@ -15,10 +21,11 @@ import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
   // hand: CustomHand,
-  hand: { rayPointer: { rayModel: { color: "red" } } },
+  hand: { rayPointer: { rayModel: { color: "red" }, makeDefault: true } },
   bodyTracking: "required",
   handTracking: "required",
   defaultXRHandProfileId: "generic-hand",
+
   emulate: {
     primaryInputMode: "hand",
 
@@ -30,6 +37,11 @@ const store = createXRStore({
 
 function Game() {
   const [ms, setMs] = useState<number>(5_000);
+
+  const handState = useXRInputSourceState("hand", "right");
+  const inputSource = handState?.inputSource;
+
+  useXRInputSourceEvent(inputSource, "select", () => {}, []);
 
   useEffect(() => {
     const interval = setInterval(
