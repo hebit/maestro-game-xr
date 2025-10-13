@@ -5,6 +5,7 @@ import {
   XRSpace as XRSpaceProvider,
   useXRInputSourceEvent,
   useXRInputSourceState,
+  XRHandModel,
 } from "@react-three/xr";
 import { Text } from "@react-three/drei";
 import {
@@ -24,6 +25,7 @@ const store = createXRStore({
   hand: {
     left: true,
     right: true,
+    model: true,
     rayPointer: { rayModel: { color: "red" }, makeDefault: true },
   },
   bodyTracking: "required",
