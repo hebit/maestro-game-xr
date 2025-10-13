@@ -5,6 +5,7 @@ import {
   XRSpace as XRSpaceProvider,
   useXRInputSourceEvent,
   useXRInputSourceState,
+  useXR,
 } from "@react-three/xr";
 import { Text } from "@react-three/drei";
 import {
@@ -31,7 +32,7 @@ const store = createXRStore({
   defaultControllerProfileId: "generic-hand",
   defaultXRHandProfileId: "generic-hand",
   gaze: false,
-  bodyTracking: false,
+  bodyTracking: true,
   handTracking: true,
   controller: false,
   /*   customSessionInit: {
@@ -47,6 +48,18 @@ const store = createXRStore({
   }, */
   emulate: false,
 });
+
+function XRManager() {
+  const { session } = useXR();
+
+  useEffect(() => {
+    session?.addEventListener("inputsourceschange", () => {
+      console.log("inputsourceschange", session.inputSources);
+    });
+  }, [session]);
+
+  return null;
+}
 
 function Game() {
   const [ms, setMs] = useState<number>(5_000);
@@ -142,6 +155,7 @@ export default function App() {
           <XRSpaceProvider space={"local-floor"}>
             <Skybox />
             <Game />
+            <XRManager />
             {/* <CustomHand /> */}
           </XRSpaceProvider>
         </XR>
