@@ -21,18 +21,23 @@ import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
   // hand: CustomHand,
-  hand: { rayPointer: { rayModel: { color: "red" }, makeDefault: true } },
+  hand: {
+    left: true,
+    right: true,
+    rayPointer: { rayModel: { color: "red" }, makeDefault: true },
+  },
   bodyTracking: "required",
-  handTracking: "required",
+  handTracking: true,
   defaultXRHandProfileId: "generic-hand",
   controller: false,
-  emulate: {
+  /*   emulate: {
     primaryInputMode: "hand",
 
     //syntheticEnvironment: "office_large",
     //syntheticEnvironment: false,
     // syntheticEnvironment: false,
-  },
+  }, */
+  emulate: false,
 });
 
 function Game() {
