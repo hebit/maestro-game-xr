@@ -13,17 +13,17 @@ export function Canva() {
   const [candidateEvents, setCandidateEvents] = useState<typeof events>([]);
 
   useFrame(() => {
-    requestAnimationFrame(() => {
-      const now = new Date();
-      const start = subSeconds(now, 2);
-      const end = addSeconds(now, 1.5);
-      const nearEvents = events.filter(
-        (event) => event.time >= start && event.time <= end
-      );
+    // requestAnimationFrame(() => {
+    const now = new Date();
+    const start = subSeconds(now, 2);
+    const end = addSeconds(now, 1.5);
+    const nearEvents = events.filter(
+      (event) => event.time >= start && event.time <= end
+    );
 
-      const candidates = nearEvents.slice(0, 3);
-      setCandidateEvents(candidates);
-    });
+    const candidates = nearEvents.slice(0, 3);
+    setCandidateEvents(candidates);
+    // });
   });
 
   function renderEvents() {
