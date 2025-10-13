@@ -1,13 +1,13 @@
 import { Canvas } from "@react-three/fiber";
 import { XR, createXRStore, XRSpace as XRSpaceProvider } from "@react-three/xr";
 import { Text } from "@react-three/drei";
-import { useEffect, useMemo, useState } from "react";
 import {
-  //Canva,
-  GestureDetector,
-  Skybox,
-} from "./components";
-//import { TimelineContextProvider } from "./contexts";
+  useEffect,
+  //useMemo,
+  useState,
+} from "react";
+import { Canva, Skybox } from "./components";
+import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
   emulate: {
@@ -45,13 +45,13 @@ function Game() {
 
   const started = ms <= 0;
 
-  const time = useMemo(() => new Date(), [started]);
+  // const time = useMemo(() => new Date(), [started]);
 
   return (
     <>
       {started ? (
         <>
-          <ambientLight />
+          {/*         <ambientLight />
           <GestureDetector
             event={{
               hand: "right",
@@ -61,10 +61,10 @@ function Game() {
               step: 4500,
               time,
             }}
-          />
-          {/* <TimelineContextProvider>
-          <Canva />
-        </TimelineContextProvider> */}
+          /> */}
+          <TimelineContextProvider>
+            <Canva />
+          </TimelineContextProvider>
         </>
       ) : (
         <Text
