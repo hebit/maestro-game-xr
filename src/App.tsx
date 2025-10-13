@@ -10,6 +10,7 @@ import { Canva, CustomHand, Skybox } from "./components";
 import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
+  hand: CustomHand,
   emulate: {
     primaryInputMode: "hand",
     syntheticEnvironment: "office_large",
@@ -107,7 +108,7 @@ export default function App() {
           <XRSpaceProvider space={"local-floor"}>
             <Skybox />
             <Game />
-            <CustomHand />
+            {/* <CustomHand /> */}
           </XRSpaceProvider>
         </XR>
       </Canvas>
