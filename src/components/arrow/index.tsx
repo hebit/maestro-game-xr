@@ -1,4 +1,5 @@
 import { useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
 import { differenceInMilliseconds } from "date-fns";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
@@ -13,20 +14,25 @@ export function Arrow({
   duration?: number;
 }) {
   const group = useRef<THREE.Group>(null);
+  const finishLineRef = useRef<THREE.Group>(null);
+  const { scene } = useGLTF("/maestro-game-xr/arrow.glb");
   const base = new THREE.Vector3(0, 1.5, -2);
   const progressed = useRef(0);
-  const materialBodyRef = useRef<THREE.MeshStandardMaterial>(null);
-  const materialHeadRef = useRef<THREE.MeshStandardMaterial>(null);
   const startTime = useMemo(() => new Date(), []);
 
-  const length = 0.2;
-  const headLen = 0.1;
+  // Z do arrow vai de 0.4 até -2
+  // range de 2.4 unidades
+  // progresso até 0.8 -> 33%
+  const finishLinePosition = useMemo(() => {
+    const distance = 0.4;
+    return base.clone().add(new THREE.Vector3(0, -distance, -0.4));
+  }, [base]);
 
   const rotations = {
-    up: [0, 0, 0],
-    down: [Math.PI, 0, 0],
-    left: [0, 0, Math.PI / 2],
-    right: [0, 0, -Math.PI / 2],
+    up: [Math.PI, 0, 0],
+    down: [0, 0, 0],
+    left: [0, 0, -Math.PI / 2],
+    right: [0, 0, Math.PI / 2],
   };
   const rotation = rotations[direction] || rotations.up;
 
@@ -43,10 +49,34 @@ export function Arrow({
       progressed.current = Math.min(elpasedTime / duration, 1);
       const distance = 0.4 * progressed.current;
 
-      if (materialBodyRef.current)
-        materialBodyRef.current.opacity = Math.max(progressed.current, 0.2);
-      if (materialHeadRef.current)
-        materialHeadRef.current.opacity = Math.max(progressed.current, 0.2);
+      group.current.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.material) {
+          const material = child.material as THREE.Material;
+
+          if (progressed.current) {
+            if ("opacity" in material) {
+              (material as any).opacity = Math.max(progressed.current, 0.2);
+              material.transparent = true;
+            }
+
+            if ("color" in material) {
+              if (progressed.current >= 0.77) {
+                (material as any).color = new THREE.Color(color);
+              } else {
+                (material as any).color = new THREE.Color("white");
+              }
+            }
+
+            if ("emissive" in material) {
+              if (progressed.current >= 0.77) {
+                (material as any).emissive = new THREE.Color(0x000000);
+              } else {
+                (material as any).emissive = new THREE.Color(0x444444);
+              }
+            }
+          }
+        }
+      });
 
       console.log("dir: ", direction, progressed.current);
 
@@ -69,30 +99,42 @@ export function Arrow({
     }
   });
 
+  const clonedScene = useMemo(() => {
+    const cloned = scene.clone();
+
+    cloned.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.material) {
+        const material = child.material as THREE.Material;
+        if ("color" in material) {
+          (material as any).color = new THREE.Color(color);
+        }
+        if ("transparent" in material) {
+          (material as any).transparent = true;
+        }
+      }
+    });
+
+    return cloned;
+  }, [scene, color]);
+
   return (
-    <group
-      ref={group}
-      rotation={rotation as [number, number, number]}
-      position={base}
-    >
-      <mesh position={[0, (length - headLen) / 2 - length / 2, 0]}>
-        <cylinderGeometry args={[0.04, 0.04, length - headLen, 12]} />
-        <meshStandardMaterial
-          ref={materialBodyRef}
-          opacity={1}
-          transparent
-          color={color}
-        />
-      </mesh>
-      <mesh position={[0, length / 2 - headLen / 2, 0]}>
-        <coneGeometry args={[0.08, headLen, 16]} />
-        <meshStandardMaterial
-          ref={materialHeadRef}
-          opacity={1}
-          transparent
-          color={color}
-        />
-      </mesh>
-    </group>
+    <>
+      <group
+        ref={group}
+        rotation={rotation as [number, number, number]}
+        position={base}
+      >
+        <primitive object={clonedScene} />
+      </group>
+
+      <group ref={finishLineRef} position={finishLinePosition}>
+        <mesh>
+          <boxGeometry args={[0.8, 0.02, 0.02]} />
+          <meshBasicMaterial color="white" transparent opacity={0.5} />
+        </mesh>
+      </group>
+    </>
   );
 }
+
+useGLTF.preload("/maestro-game-xr/arrow.glb");
