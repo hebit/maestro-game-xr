@@ -15,6 +15,7 @@ import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
   // hand: CustomHand,
+  hand: { rayPointer: { rayModel: { color: "red" } } },
   bodyTracking: "required",
   handTracking: "required",
   defaultXRHandProfileId: "generic-hand",
