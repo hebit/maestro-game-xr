@@ -25,7 +25,7 @@ const store = createXRStore({
   bodyTracking: "required",
   handTracking: "required",
   defaultXRHandProfileId: "generic-hand",
-
+  controller: false,
   emulate: {
     primaryInputMode: "hand",
 
