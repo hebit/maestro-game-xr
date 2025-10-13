@@ -1,8 +1,8 @@
 import { Canvas } from "@react-three/fiber";
 import { XR, createXRStore, XRSpace as XRSpaceProvider } from "@react-three/xr";
 import { Text } from "@react-three/drei";
-import { useEffect, useState } from "react";
-import { Canva, Skybox } from "./components";
+import { useEffect, useMemo, useState } from "react";
+import { Canva, GestureDetector, Skybox } from "./components";
 import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
@@ -33,6 +33,8 @@ function Game() {
     return () => clearInterval(interval);
   }, []);
 
+  const time = useMemo(() => new Date(), [started]);
+
   function renderText() {
     if (ms <= 0) return "GO!";
 
@@ -44,9 +46,22 @@ function Game() {
   return (
     <>
       {started ? (
-        <TimelineContextProvider>
+        <>
+          <ambientLight />
+          <GestureDetector
+            event={{
+              hand: "right",
+              id: "abc123",
+              move: "move-baton-down",
+              position: [0, 1.7, -1.5],
+              step: 4500,
+              time,
+            }}
+          />
+          {/* <TimelineContextProvider>
           <Canva />
-        </TimelineContextProvider>
+        </TimelineContextProvider> */}
+        </>
       ) : (
         <Text
           position={[0, 2.5, -2]}
