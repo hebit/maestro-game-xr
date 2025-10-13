@@ -6,14 +6,22 @@ import {
   //useMemo,
   useState,
 } from "react";
-import { Canva, CustomHand, Skybox } from "./components";
+import {
+  Canva,
+  //CustomHand,
+  Skybox,
+} from "./components";
 import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
-  hand: CustomHand,
+  // hand: CustomHand,
+  bodyTracking: "required",
+  handTracking: "required",
+  defaultXRHandProfileId: "generic-hand",
   emulate: {
     primaryInputMode: "hand",
-    syntheticEnvironment: "office_large",
+
+    //syntheticEnvironment: "office_large",
     //syntheticEnvironment: false,
     // syntheticEnvironment: false,
   },
