@@ -6,7 +6,7 @@ import {
   //useMemo,
   useState,
 } from "react";
-import { Canva, Skybox } from "./components";
+import { Canva, CustomHand, Skybox } from "./components";
 import { TimelineContextProvider } from "./contexts";
 
 const store = createXRStore({
@@ -107,6 +107,7 @@ export default function App() {
           <XRSpaceProvider space={"local-floor"}>
             <Skybox />
             <Game />
+            <CustomHand />
           </XRSpaceProvider>
         </XR>
       </Canvas>
