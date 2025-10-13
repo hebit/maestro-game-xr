@@ -63,7 +63,7 @@ export function Canva() {
       >
         {candidateEvents.length > 0
           ? JSON.stringify(candidateEvents[0].move)
-          : ""}
+          : `none: ${events.length}`}
       </Text>
       <Song />
     </>
