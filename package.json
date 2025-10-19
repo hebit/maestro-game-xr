@@ -14,8 +14,10 @@
     "@react-three/xr": "^6.6.0",
     "@uidotdev/usehooks": "^2.4.1",
     "date-fns": "^4.1.0",
+    "react-router": "^7.9.4",
     "tone": "^15.1.22",
-    "valtio": "^1.13.2"
+    "valtio": "^1.13.2",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

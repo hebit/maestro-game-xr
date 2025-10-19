@@ -28,7 +28,7 @@ function usePointinDetector(
 
     const tip = inputSource.hand.get("index-finger-tip");
     const base =
-      inputSource.hand.get("index-finger-metacarpal") ||
+      inputSource.hand.get("index-finger-phalanx-proximal") ||
       inputSource.hand.get("wrist");
     if (!tip || !base) return;
 

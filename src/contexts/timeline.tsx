@@ -105,7 +105,7 @@ interface TimelineContextProviderProps extends React.PropsWithChildren {
 }
 
 const player = new Tone.Player({
-  url: "./varias-queixas.mp3",
+  url: "/maestro-game-xr/varias-queixas.mp3",
   // loop: true,
   // autostart: true,
 });

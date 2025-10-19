@@ -5,7 +5,6 @@ import { TimelineEvent } from "../../contexts";
 import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 
 import { Arrow } from "../arrow";
-import { Text } from "@react-three/drei";
 
 export function GestureDetector({ event }: { event: TimelineEvent }) {
   const poseName = usePoseName(event.hand);
@@ -52,15 +51,6 @@ export function GestureDetector({ event }: { event: TimelineEvent }) {
           color={matched ? "red" : "skyblue"}
         />
       )}
-      <Text
-        position={[0, 2.5, -2]}
-        fontSize={0.2}
-        color={matched ? "red" : "skyblue"}
-        anchorX="center"
-        anchorY="middle"
-      >
-        Arrow
-      </Text>
     </>
   );
 }

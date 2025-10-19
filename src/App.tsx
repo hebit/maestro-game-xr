@@ -3,22 +3,12 @@ import {
   XR,
   createXRStore,
   XRSpace as XRSpaceProvider,
-  useXRInputSourceEvent,
-  useXRInputSourceState,
   useXR,
 } from "@react-three/xr";
-import { Text } from "@react-three/drei";
-import {
-  useEffect,
-  //useMemo,
-  useState,
-} from "react";
-import {
-  Canva,
-  //CustomHand,
-  Skybox,
-} from "./components";
-import { TimelineContextProvider } from "./contexts";
+import { useEffect } from "react";
+import { Skybox } from "./components";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { RoundPage, HomePage, LobbyPage } from "./pages";
 
 const store = createXRStore({
   // hand: CustomHand,
@@ -39,110 +29,23 @@ const store = createXRStore({
     requiredFeatures: ["local-floor"],
     optionalFeatures: ["hand-tracking"],
   }, */
-  /*   emulate: {
+  emulate: {
     primaryInputMode: "hand",
-
-    //syntheticEnvironment: "office_large",
-    //syntheticEnvironment: false,
-    // syntheticEnvironment: false,
-  }, */
-  emulate: false,
+  },
+  // emulate: false,
 });
 
 function XRManager() {
   const { session } = useXR();
 
   useEffect(() => {
+    session?.dispatchEvent(new Event(""));
     session?.addEventListener("inputsourceschange", () => {
       console.log("inputsourceschange", session.inputSources);
     });
   }, [session]);
 
   return null;
-}
-
-function Game() {
-  const [ms, setMs] = useState<number>(5_000);
-
-  const handState = useXRInputSourceState("hand", "right");
-  const inputSource = handState?.inputSource;
-
-  useXRInputSourceEvent(inputSource, "select", () => {}, []);
-
-  useEffect(() => {
-    const interval = setInterval(
-      () =>
-        setMs((value) => {
-          if (value <= 0) {
-            return 0;
-          }
-
-          return value - 1_000;
-        }),
-      1_000
-    );
-
-    return () => clearInterval(interval);
-  }, []);
-
-  function renderText() {
-    if (ms <= 0) return "GO!";
-
-    return (ms / 1_000).toFixed(0);
-  }
-
-  const started = ms <= 0;
-
-  // const time = useMemo(() => new Date(), [started]);
-
-  return (
-    <>
-      {started ? (
-        <>
-          {/*         <ambientLight />
-          <GestureDetector
-            event={{
-              hand: "right",
-              id: "abc123",
-              move: "move-baton-down",
-              position: [0, 1.7, -1.5],
-              step: 4500,
-              time,
-            }}
-          /> */}
-          <TimelineContextProvider>
-            <Canva />
-          </TimelineContextProvider>
-        </>
-      ) : (
-        <Text
-          position={[0, 2.5, -2]}
-          fontSize={0.2}
-          color={"blue"}
-          anchorX="center"
-          anchorY="middle"
-        >
-          {renderText()}
-        </Text>
-      )}
-
-      {/* <Countdown time={5_000} poseName={poseName} /> */}
-      {/* <GestureDetector /> */}
-
-      {/* <PointingDetector /> */}
-      {/*  {poseName && (
-        <Text
-          position={[0, 1.5, -2]}
-          fontSize={0.2}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          {poseName}
-        </Text>
-      )} */}
-    </>
-  );
 }
 
 export default function App() {
@@ -154,9 +57,17 @@ export default function App() {
         <XR store={store}>
           <XRSpaceProvider space={"local-floor"}>
             <Skybox />
-            <Game />
+            <BrowserRouter>
+              <Routes>
+                <Route path="maestro-game-xr">
+                  <Route index Component={HomePage} />
+                  <Route path="lobby" Component={LobbyPage} />
+                  <Route path="play/:id" Component={RoundPage} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+
             <XRManager />
-            {/* <CustomHand /> */}
           </XRSpaceProvider>
         </XR>
       </Canvas>
