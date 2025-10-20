@@ -43,13 +43,15 @@ export function GestureDetector({ event }: { event: TimelineEvent }) {
     if (event.move.includes("up")) return "up";
   })();
 
+  const color = useMemo(() => {
+    if (!isAvailable) return "white";
+    return matched ? "green" : "red";
+  }, [isAvailable, matched]);
+
   return (
     <>
       {expectedDirection && (
-        <Arrow
-          direction={expectedDirection}
-          color={matched ? "red" : "skyblue"}
-        />
+        <Arrow direction={expectedDirection} color={color} />
       )}
     </>
   );

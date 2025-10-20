@@ -1,7 +1,6 @@
 import { useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
 import { differenceInMilliseconds } from "date-fns";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 export function Arrow({
@@ -15,14 +14,13 @@ export function Arrow({
 }) {
   const group = useRef<THREE.Group>(null);
   const finishLineRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF("/maestro-game-xr/arrow.glb");
+  const arrowHeadRef = useRef<THREE.Mesh>(null);
+  const arrowBodyRef = useRef<THREE.Mesh>(null);
+
   const base = new THREE.Vector3(0, 1.5, -2);
   const progressed = useRef(0);
   const startTime = useMemo(() => new Date(), []);
 
-  // Z do arrow vai de 0.4 até -2
-  // range de 2.4 unidades
-  // progresso até 0.8 -> 33%
   const finishLinePosition = useMemo(() => {
     const distance = 0.4;
     return base.clone().add(new THREE.Vector3(0, -distance, -0.4));
@@ -36,50 +34,36 @@ export function Arrow({
   };
   const rotation = rotations[direction] || rotations.up;
 
-  useEffect(() => {
-    console.log("Arrow:MOUNT:", direction);
-    return () => {
-      console.log("Arrow:UNMOUNT:", direction);
-    };
-  }, []);
-
   useFrame(() => {
-    if (group.current) {
+    if (group.current && arrowHeadRef.current && arrowBodyRef.current) {
       const elpasedTime = differenceInMilliseconds(new Date(), startTime);
       progressed.current = Math.min(elpasedTime / duration, 1);
       const distance = 0.4 * progressed.current;
 
-      group.current.traverse((child) => {
-        if (child instanceof THREE.Mesh && child.material) {
-          const material = child.material as THREE.Material;
+      // Update arrow head material
+      const headMaterial = arrowHeadRef.current
+        .material as THREE.MeshBasicMaterial;
+      const bodyMaterial = arrowBodyRef.current
+        .material as THREE.MeshBasicMaterial;
 
-          if (progressed.current) {
-            if ("opacity" in material) {
-              (material as any).opacity = Math.max(progressed.current, 0.2);
-              material.transparent = true;
-            }
+      if (progressed.current) {
+        // Update opacity
+        headMaterial.opacity = Math.max(progressed.current, 0.2);
+        bodyMaterial.opacity = Math.max(progressed.current, 0.2);
+        headMaterial.transparent = true;
+        bodyMaterial.transparent = true;
 
-            if ("color" in material) {
-              if (progressed.current >= 0.77) {
-                (material as any).color = new THREE.Color(color);
-              } else {
-                (material as any).color = new THREE.Color("white");
-              }
-            }
-
-            if ("emissive" in material) {
-              if (progressed.current >= 0.77) {
-                (material as any).emissive = new THREE.Color(0x000000);
-              } else {
-                (material as any).emissive = new THREE.Color(0x444444);
-              }
-            }
-          }
+        // Update color
+        if (progressed.current >= 0.77) {
+          headMaterial.color = new THREE.Color(color);
+          bodyMaterial.color = new THREE.Color(color);
+        } else {
+          headMaterial.color = new THREE.Color("white");
+          bodyMaterial.color = new THREE.Color("white");
         }
-      });
+      }
 
-      console.log("dir: ", direction, progressed.current);
-
+      // Update position based on direction
       if (direction === "up")
         group.current.position
           .copy(base)
@@ -99,24 +83,6 @@ export function Arrow({
     }
   });
 
-  const clonedScene = useMemo(() => {
-    const cloned = scene.clone();
-
-    cloned.traverse((child) => {
-      if (child instanceof THREE.Mesh && child.material) {
-        const material = child.material as THREE.Material;
-        if ("color" in material) {
-          (material as any).color = new THREE.Color(color);
-        }
-        if ("transparent" in material) {
-          (material as any).transparent = true;
-        }
-      }
-    });
-
-    return cloned;
-  }, [scene, color]);
-
   return (
     <>
       <group
@@ -124,7 +90,17 @@ export function Arrow({
         rotation={rotation as [number, number, number]}
         position={base}
       >
-        <primitive object={clonedScene} />
+        {/* Arrow Head - Triangle */}
+        <mesh ref={arrowHeadRef} position={[0, 0.15, 0]}>
+          <coneGeometry args={[0.1, 0.15, 3]} />
+          <meshBasicMaterial color="white" transparent opacity={0.2} />
+        </mesh>
+
+        {/* Arrow Body - Rectangle */}
+        <mesh ref={arrowBodyRef} position={[0, 0.05, 0]}>
+          <boxGeometry args={[0.1, 0.05, 0.04]} />
+          <meshBasicMaterial color="white" transparent opacity={0.2} />
+        </mesh>
       </group>
 
       <group ref={finishLineRef} position={finishLinePosition}>
@@ -136,5 +112,3 @@ export function Arrow({
     </>
   );
 }
-
-useGLTF.preload("/maestro-game-xr/arrow.glb");
