@@ -27,8 +27,8 @@ export function Arrow({
   }, [base]);
 
   const rotations = {
-    up: [Math.PI, 0, 0],
-    down: [0, 0, 0],
+    up: [0, 0, 0],
+    down: [Math.PI, 0, 0],
     left: [0, 0, -Math.PI / 2],
     right: [0, 0, Math.PI / 2],
   };
@@ -91,13 +91,13 @@ export function Arrow({
         position={base}
       >
         {/* Arrow Head - Triangle */}
-        <mesh ref={arrowHeadRef} position={[0, 0.15, 0]}>
+        <mesh ref={arrowHeadRef} position={[0, 0, 0]}>
           <coneGeometry args={[0.1, 0.15, 3]} />
           <meshBasicMaterial color="white" transparent opacity={0.2} />
         </mesh>
 
         {/* Arrow Body - Rectangle */}
-        <mesh ref={arrowBodyRef} position={[0, 0.05, 0]}>
+        <mesh ref={arrowBodyRef} position={[0, -0.1, 0]}>
           <boxGeometry args={[0.1, 0.05, 0.04]} />
           <meshBasicMaterial color="white" transparent opacity={0.2} />
         </mesh>

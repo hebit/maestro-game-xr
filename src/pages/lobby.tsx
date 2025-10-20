@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { Button, PointingDetector } from "../components";
 import { useMemo } from "react";
+import { Arrow } from "../components/arrow";
 
 export function LobbyPage() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export function LobbyPage() {
           step: 1_900, // 1.9s -> 1900ms
         }}
       />
+      <Arrow direction="down" />
       <Button
         position={[0, 1.0, -2]}
         label="VARIAS QUEIXAS"

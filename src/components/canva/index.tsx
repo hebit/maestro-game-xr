@@ -15,18 +15,17 @@ export function Canva() {
     // requestAnimationFrame(() => {
     const now = new Date();
     const start = subSeconds(now, 2);
-    const end = addSeconds(now, 1.5);
+    const end = addSeconds(now, 3.5);
     const nearEvents = events.filter(
       (event) => event.time >= start && event.time <= end
     );
 
-    const candidates = nearEvents.slice(0, 3);
+    const candidates = nearEvents.slice(0, 4);
     setCandidateEvents(candidates);
     // });
   });
 
   function renderEvents() {
-    // console.log({ candidateEvents });
     return candidateEvents.map((event) => {
       if (event.move === "pointing") {
         return <PointingDetector event={event} key={event.id} />;
