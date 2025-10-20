@@ -9,7 +9,8 @@ import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 
 function usePointinDetector(
   isAvailableRef: boolean,
-  sphereRef: React.RefObject<THREE.Mesh | null>
+  sphereRef: React.RefObject<THREE.Mesh | null>,
+  rayRef: React.RefObject<THREE.Mesh | null>
 ) {
   const [isPointing, setIsPointing] = useState(false);
 
@@ -40,23 +41,31 @@ function usePointinDetector(
     const tipPos = new THREE.Vector3().copy(tipPose.transform.position);
     const direction = tipPos.clone().sub(origin).normalize();
 
-    // ray da mão
     const ray = new THREE.Ray(origin, direction);
+
+    if (rayRef.current) {
+      const rayLength = 5;
+      const rayEnd = origin
+        .clone()
+        .add(direction.clone().multiplyScalar(rayLength));
+      const rayCenter = origin.clone().add(rayEnd).multiplyScalar(0.5);
+
+      rayRef.current.position.copy(rayCenter);
+
+      rayRef.current.lookAt(rayEnd);
+      rayRef.current.rotateX(Math.PI / 2);
+    }
 
     if (!isAvailableRef) return;
 
-    // bounding sphere (esfera alvo)
     if (sphereRef.current) {
-      // const [x, y, z] = spherePos;
-      // const sphere = new THREE.Sphere(new THREE.Vector3(x, y, z));
-
       const sphere = new THREE.Sphere();
       sphereRef.current.geometry.computeBoundingSphere();
       sphere.copy(sphereRef.current.geometry.boundingSphere!);
       sphere.applyMatrix4(sphereRef.current.matrixWorld);
 
       const intersecta = ray.intersectsSphere(sphere);
-      // console.log({ intersecta });
+
       if (intersecta) {
         setIsPointing(intersecta);
       }
@@ -75,8 +84,10 @@ export function PointingDetector({ event }: PointingDetectorProps) {
 
   const sphereRef = useRef<THREE.Mesh>(null);
   const innerSphereMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
+  const rayMeshRef = useRef<THREE.Mesh>(null);
 
   const { isAvailable, isVisible } = useAvaibilityState(event);
+  const poseName = usePoseName("left");
 
   useFrame(() => {
     if (!isVisible || !innerSphereMaterialRef.current) return;
@@ -91,12 +102,19 @@ export function PointingDetector({ event }: PointingDetectorProps) {
     innerSphereMaterialRef.current.opacity = t;
   });
 
-  const isPointing = usePointinDetector(isAvailable, sphereRef);
+  const isPointing = usePointinDetector(isAvailable, sphereRef, rayMeshRef);
 
   if (!isVisible) return null;
 
   return (
     <>
+      {poseName === "pointing" && (
+        <mesh ref={rayMeshRef}>
+          <cylinderGeometry args={[0.002, 0.002, 2, 8]} />
+          <meshBasicMaterial color="red" transparent opacity={0.8} />
+        </mesh>
+      )}
+
       <mesh castShadow receiveShadow position={spherePos}>
         <sphereGeometry args={[0.1, 32, 32]} />
 
