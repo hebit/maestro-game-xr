@@ -34,8 +34,6 @@ export function GestureDetector({ event }: { event: TimelineEvent }) {
     }
   }, [executedMove, event.move, isAvailable]);
 
-  if (!isVisible) return null;
-
   const expectedDirection = (() => {
     if (event.move.includes("left")) return "left";
     if (event.move.includes("right")) return "right";
@@ -47,6 +45,8 @@ export function GestureDetector({ event }: { event: TimelineEvent }) {
     if (!isAvailable) return "white";
     return matched ? "green" : "red";
   }, [isAvailable, matched]);
+
+  if (!isVisible) return null;
 
   return (
     <>
