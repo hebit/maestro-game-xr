@@ -122,7 +122,13 @@ export function PointingDetector({ event }: PointingDetectorProps) {
         color={isPointing ? "green" : "blue"}
       />
 
-      <mesh ref={sphereRef} castShadow receiveShadow position={spherePos}>
+      <mesh
+        ref={sphereRef}
+        visible={false}
+        castShadow
+        receiveShadow
+        position={spherePos}
+      >
         <sphereGeometry args={[0.3, 32, 32]} />
 
         <meshPhysicalMaterial

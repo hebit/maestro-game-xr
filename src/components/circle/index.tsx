@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Glow } from "./components";
 import { CircleProps } from "./types";
@@ -14,6 +14,18 @@ export function Circle({ position, duration, color }: CircleProps) {
   const blueLineRef = useRef<THREE.LineSegments>(null);
   const blueMeshRef = useRef<THREE.Mesh>(null);
   const startTimeRef = useRef<number | null>(null);
+
+  // Calculate rotation to face (0,0,0)
+  const rotationY = useMemo(() => {
+    if (!position) return 0;
+
+    const target = new THREE.Vector3(0, 0, 0);
+    const currentPos = new THREE.Vector3(position[0], position[1], position[2]);
+    const direction = target.clone().sub(currentPos).normalize();
+
+    // Calculate Y rotation to face the target
+    return Math.atan2(direction.x, direction.z);
+  }, [position]);
 
   useFrame((state) => {
     if (!blueLineRef.current || !blueMeshRef.current) return;
@@ -52,7 +64,7 @@ export function Circle({ position, duration, color }: CircleProps) {
   });
 
   return (
-    <group position={position}>
+    <group position={position} rotation={[0, rotationY, 0]}>
       <group position={[0, 0, -0.01]}>
         <Glow />
       </group>

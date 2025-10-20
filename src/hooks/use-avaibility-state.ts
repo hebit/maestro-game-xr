@@ -7,7 +7,7 @@ export function useAvaibilityState(
   event: TimelineEvent,
   visibleTime: number | undefined = 2_000,
   availableTime: number | undefined = 300,
-  shutdownTime: number | undefined = 100
+  shutdownTime: number | undefined = 200
 ) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
