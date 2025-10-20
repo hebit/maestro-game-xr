@@ -1,7 +1,7 @@
 import { useXRInputSourceEvent, useXRInputSourceState } from "@react-three/xr";
 import { useEffect, useState } from "react";
 import { TimelineContextProvider } from "../contexts";
-import { Canva } from "../components";
+import { Canva, Person } from "../components";
 import { Text } from "@react-three/drei";
 
 export function RoundPage() {
@@ -41,6 +41,9 @@ export function RoundPage() {
       {started ? (
         <>
           <TimelineContextProvider>
+            <Person variant="center" />
+            <Person variant="right" />
+            <Person variant="left" />
             <Canva />
           </TimelineContextProvider>
         </>
