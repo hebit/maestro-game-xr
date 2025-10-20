@@ -29,8 +29,8 @@ export function Arrow({
   const rotations = {
     up: [0, 0, 0],
     down: [Math.PI, 0, 0],
-    left: [0, 0, -Math.PI / 2],
-    right: [0, 0, Math.PI / 2],
+    right: [0, 0, -Math.PI / 2],
+    left: [0, 0, Math.PI / 2],
   };
   const rotation = rotations[direction] || rotations.up;
 
