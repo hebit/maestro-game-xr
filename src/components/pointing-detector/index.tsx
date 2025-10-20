@@ -6,6 +6,7 @@ import { usePoseName } from "../../hooks";
 import { TimelineEvent } from "../../contexts";
 import { differenceInMilliseconds } from "date-fns";
 import { useAvaibilityState } from "../../hooks/use-avaibility-state";
+import { Circle } from "../circle";
 
 function usePointinDetector(
   isAvailableRef: boolean,
@@ -115,7 +116,27 @@ export function PointingDetector({ event }: PointingDetectorProps) {
         </mesh>
       )}
 
-      <mesh castShadow receiveShadow position={spherePos}>
+      <Circle
+        position={spherePos}
+        duration={2_000}
+        color={isPointing ? "green" : "blue"}
+      />
+
+      <mesh ref={sphereRef} castShadow receiveShadow position={spherePos}>
+        <sphereGeometry args={[0.3, 32, 32]} />
+
+        <meshPhysicalMaterial
+          metalness={0}
+          roughness={1}
+          envMapIntensity={0.9}
+          clearcoat={1}
+          transparent={true}
+          opacity={0.5}
+          reflectivity={0.2}
+        />
+      </mesh>
+
+      {/* <mesh castShadow receiveShadow position={spherePos}>
         <sphereGeometry args={[0.1, 32, 32]} />
 
         <meshStandardMaterial
@@ -138,7 +159,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
           opacity={0.5}
           reflectivity={0.2}
         />
-      </mesh>
+      </mesh> */}
     </>
   );
 }
