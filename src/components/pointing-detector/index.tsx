@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useXR, useXRInputSourceState, useXRSpace } from "@react-three/xr";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { usePoseName } from "../../hooks";
 import { TimelineEvent } from "../../contexts";
 import { differenceInMilliseconds } from "date-fns";
@@ -105,6 +105,11 @@ export function PointingDetector({ event }: PointingDetectorProps) {
 
   const isPointing = usePointinDetector(isAvailable, sphereRef, rayMeshRef);
 
+  const color = useMemo(() => {
+    if (!isAvailable) return "white";
+    return isPointing ? "green" : "red";
+  }, [isAvailable, isPointing]);
+
   if (!isVisible) return null;
 
   return (
@@ -116,11 +121,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
         </mesh>
       )}
 
-      <Circle
-        position={spherePos}
-        duration={2_000}
-        color={isPointing ? "green" : "blue"}
-      />
+      <Circle position={spherePos} duration={2_000} color={color} />
 
       <mesh
         ref={sphereRef}
