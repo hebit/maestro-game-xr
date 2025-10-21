@@ -1,80 +1,11 @@
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { useXR, useXRInputSourceState, useXRSpace } from "@react-three/xr";
-import React, { useMemo, useRef, useState } from "react";
-import { usePoseName } from "../../hooks";
-import { TimelineEvent } from "../../contexts";
+import { useEffect, useMemo, useRef } from "react";
+import { TimelineEvent, useTimeline } from "../../contexts";
 import { differenceInMilliseconds } from "date-fns";
 import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 import { Circle } from "../circle";
-
-function usePointinDetector(
-  isAvailableRef: boolean,
-  sphereRef: React.RefObject<THREE.Mesh | null>,
-  rayRef: React.RefObject<THREE.Mesh | null>
-) {
-  const [isPointing, setIsPointing] = useState(false);
-
-  const poseName = usePoseName("left");
-  const { session } = useXR();
-  const referenceSpace = useXRSpace();
-  const sourceState = useXRInputSourceState("hand", "left");
-
-  useFrame((_, __, frame) => {
-    if (!session) return;
-    if (poseName !== "pointing") return;
-
-    const inputSource = sourceState?.inputSource;
-
-    if (!frame || !referenceSpace || !inputSource) return;
-
-    const tip = inputSource.hand.get("index-finger-tip");
-    const base =
-      inputSource.hand.get("index-finger-phalanx-proximal") ||
-      inputSource.hand.get("wrist");
-    if (!tip || !base) return;
-
-    const tipPose = frame.getJointPose?.(tip, referenceSpace);
-    const basePose = frame.getJointPose?.(base, referenceSpace);
-    if (!tipPose || !basePose) return;
-
-    const origin = new THREE.Vector3().copy(basePose.transform.position);
-    const tipPos = new THREE.Vector3().copy(tipPose.transform.position);
-    const direction = tipPos.clone().sub(origin).normalize();
-
-    const ray = new THREE.Ray(origin, direction);
-
-    if (rayRef.current) {
-      const rayLength = 5;
-      const rayEnd = origin
-        .clone()
-        .add(direction.clone().multiplyScalar(rayLength));
-      const rayCenter = origin.clone().add(rayEnd).multiplyScalar(0.5);
-
-      rayRef.current.position.copy(rayCenter);
-
-      rayRef.current.lookAt(rayEnd);
-      rayRef.current.rotateX(Math.PI / 2);
-    }
-
-    if (!isAvailableRef) return;
-
-    if (sphereRef.current) {
-      const sphere = new THREE.Sphere();
-      sphereRef.current.geometry.computeBoundingSphere();
-      sphere.copy(sphereRef.current.geometry.boundingSphere!);
-      sphere.applyMatrix4(sphereRef.current.matrixWorld);
-
-      const intersecta = ray.intersectsSphere(sphere);
-
-      if (intersecta) {
-        setIsPointing(intersecta);
-      }
-    }
-  });
-
-  return isPointing;
-}
+import { usePointinDetector } from "./hooks";
 
 interface PointingDetectorProps {
   event: TimelineEvent;
@@ -85,10 +16,9 @@ export function PointingDetector({ event }: PointingDetectorProps) {
 
   const sphereRef = useRef<THREE.Mesh>(null);
   const innerSphereMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
-  const rayMeshRef = useRef<THREE.Mesh>(null);
 
   const { isAvailable, isVisible } = useAvaibilityState(event);
-  const poseName = usePoseName("left");
+  const { matchEvent } = useTimeline();
 
   useFrame(() => {
     if (!isVisible || !innerSphereMaterialRef.current) return;
@@ -103,7 +33,13 @@ export function PointingDetector({ event }: PointingDetectorProps) {
     innerSphereMaterialRef.current.opacity = t;
   });
 
-  const isPointing = usePointinDetector(isAvailable, sphereRef, rayMeshRef);
+  const isPointing = usePointinDetector(isAvailable, sphereRef);
+
+  useEffect(() => {
+    if (isPointing) {
+      matchEvent(event, 1);
+    }
+  }, [isPointing]);
 
   const color = useMemo(() => {
     if (!isAvailable) return "white";
@@ -114,48 +50,10 @@ export function PointingDetector({ event }: PointingDetectorProps) {
 
   return (
     <>
-      {poseName === "pointing" && (
-        <mesh ref={rayMeshRef}>
-          <cylinderGeometry args={[0.002, 0.002, 2, 8]} />
-          <meshBasicMaterial color="red" transparent opacity={0.8} />
-        </mesh>
-      )}
-
       <Circle position={spherePos} duration={2_000} color={color} />
 
-      <mesh
-        ref={sphereRef}
-        visible={false}
-        castShadow
-        receiveShadow
-        position={spherePos}
-      >
-        <sphereGeometry args={[0.3, 32, 32]} />
-
-        <meshPhysicalMaterial
-          metalness={0}
-          roughness={1}
-          envMapIntensity={0.9}
-          clearcoat={1}
-          transparent={true}
-          opacity={0.5}
-          reflectivity={0.2}
-        />
-      </mesh>
-
-      {/* <mesh castShadow receiveShadow position={spherePos}>
-        <sphereGeometry args={[0.1, 32, 32]} />
-
-        <meshStandardMaterial
-          ref={innerSphereMaterialRef}
-          color={isPointing ? "red" : "skyblue"}
-          transparent
-          opacity={0}
-        />
-      </mesh>
-
       <mesh ref={sphereRef} castShadow receiveShadow position={spherePos}>
-        <sphereGeometry args={[0.3, 32, 32]} />
+        <sphereGeometry args={[0.4, 32, 32]} />
 
         <meshPhysicalMaterial
           metalness={0}
@@ -166,7 +64,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
           opacity={0.5}
           reflectivity={0.2}
         />
-      </mesh> */}
+      </mesh>
     </>
   );
 }

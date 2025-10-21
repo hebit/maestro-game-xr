@@ -1,3 +1,4 @@
+import { Text } from "@react-three/drei";
 import { addMilliseconds } from "date-fns";
 import {
   createContext,
@@ -97,6 +98,13 @@ const eventsBySong = {
       position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 115_000, // 1.9s -> 1900ms
     },
+    {
+      id: "hash-8",
+      hand: "right",
+      move: "move-palm-down-open",
+      position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 118_000, // 1.9s -> 1900ms
+    },
   ] as Omit<TimelineEvent, "time">[],
 };
 
@@ -106,9 +114,8 @@ interface TimelineContextProviderProps extends React.PropsWithChildren {
 
 const player = new Tone.Player({
   url: "/maestro-game-xr/varias-queixas.mp3",
-  // loop: true,
-  // autostart: true,
-});
+  autostart: false,
+}).toDestination();
 
 export function TimelineContextProvider({
   songId = "varias-queixas",
@@ -149,6 +156,15 @@ export function TimelineContextProvider({
         matchEvent,
       }}
     >
+      <Text
+        position={[0, 2, -1.5]}
+        fontSize={0.05}
+        color="black"
+        anchorX="center"
+        anchorY="middle"
+      >
+        Current Score: {score}
+      </Text>
       {children}
     </TimelineContext.Provider>
   );

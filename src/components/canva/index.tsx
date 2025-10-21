@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { addSeconds, subSeconds } from "date-fns";
 import { PointingDetector } from "../pointing-detector";
 import { GestureDetector } from "../gesture-detector";
-import { Song } from "../../song";
+import { HandRay } from "../hand-ray";
 
 export function Canva() {
   const { events } = useTimeline();
@@ -12,7 +12,6 @@ export function Canva() {
   const [candidateEvents, setCandidateEvents] = useState<typeof events>([]);
 
   useFrame(() => {
-    // requestAnimationFrame(() => {
     const now = new Date();
     const start = subSeconds(now, 2);
     const end = addSeconds(now, 3.5);
@@ -22,7 +21,6 @@ export function Canva() {
 
     const candidates = nearEvents.slice(0, 4);
     setCandidateEvents(candidates);
-    // });
   });
 
   function renderEvents() {
@@ -39,8 +37,8 @@ export function Canva() {
     <>
       <ambientLight />
       {renderEvents()}
-
-      <Song />
+      <HandRay side="left" />
+      <HandRay side="right" />
     </>
   );
 }
