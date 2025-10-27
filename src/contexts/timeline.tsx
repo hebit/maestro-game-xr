@@ -47,21 +47,52 @@ const eventsBySong = {
       hand: "left",
       move: "pointing",
       position: [1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 1_900, // 1.9s -> 1900ms
+      step: 2_900, // 1.9s -> 1900ms
     },
     {
-      id: "hash-1",
+      id: "hash-01",
+      hand: "left",
+      move: "pointing",
+      position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 4_900, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-11",
       hand: "right",
       move: "move-baton-down",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 4_500, // 1.9s -> 1900ms
+      step: 6_500, // 1.9s -> 1900ms
+    },
+
+    {
+      id: "hash-12",
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 7_500, // 1.9s -> 1900ms
+    },
+
+    {
+      id: "hash-13",
+      hand: "right",
+      move: "move-baton-down",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 8_500, // 1.9s -> 1900ms
+    },
+
+    {
+      id: "hash-14",
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 9_500, // 1.9s -> 1900ms
     },
     {
       id: "hash-2",
       hand: "left",
       move: "pointing",
       position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 8_900, // 1.9s -> 1900ms
+      step: 10_900, // 1.9s -> 1900ms
     },
     {
       id: "hash-3",

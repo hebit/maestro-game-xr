@@ -11,7 +11,12 @@ export function GestureDetector({ event }: { event: TimelineEvent }) {
   const gestureDirection = useGestureDirection(event.hand);
   const { matchEvent } = useTimeline();
 
-  const { isAvailable, isVisible } = useAvaibilityState(event, 3_000, 300, 500);
+  const { isAvailable, isVisible, isOff } = useAvaibilityState(
+    event,
+    3_000,
+    300,
+    500
+  );
   const [matched, setMatched] = useState(false);
 
   const executedMove = useMemo(() => {
@@ -44,9 +49,9 @@ export function GestureDetector({ event }: { event: TimelineEvent }) {
   })();
 
   const color = useMemo(() => {
-    if (!isAvailable) return "white";
-    return matched ? "green" : "red";
-  }, [isAvailable, matched]);
+    if (isOff && !matched) return "red";
+    return matched ? "green" : "white";
+  }, [isOff, matched]);
 
   if (!isVisible) return null;
 
@@ -54,6 +59,7 @@ export function GestureDetector({ event }: { event: TimelineEvent }) {
     <>
       {expectedDirection && (
         <Arrow
+          duration={3_000}
           noTail={event.move.includes("palm")}
           direction={expectedDirection}
           color={color}

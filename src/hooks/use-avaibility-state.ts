@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TimelineEvent } from "../contexts";
 import { differenceInMilliseconds } from "date-fns";
 
@@ -11,6 +11,7 @@ export function useAvaibilityState(
 ) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
+  const [isOff, setIsOff] = useState(false);
 
   useFrame(() => {
     const now = new Date();
@@ -23,10 +24,24 @@ export function useAvaibilityState(
     } else {
       const shouldRender =
         differenceInMilliseconds(now, event.time) < shutdownTime;
+      const shouldBeAvailable =
+        differenceInMilliseconds(now, event.time) < availableTime;
       setIsVisible(shouldRender);
-      setIsAvailable(shouldRender);
+      setIsAvailable(shouldBeAvailable);
+      setIsOff(!shouldBeAvailable);
     }
   });
 
-  return { isVisible, isAvailable };
+  /* useEffect(() => {
+    console.log("isVisible changed:", isVisible);
+  }, [isVisible]); */
+
+  useEffect(() => {
+    console.log("isAvailable changed:", isAvailable);
+  }, [isAvailable]);
+  /*   useEffect(() => {
+    console.log("isOff changed:", isOff);
+  }, [isOff]); */
+
+  return { isVisible, isAvailable, isOff };
 }

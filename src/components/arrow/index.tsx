@@ -44,87 +44,29 @@ export function Arrow({
     if (group.current && arrowHeadRef.current && arrowBodyRef.current) {
       const elpasedTime = differenceInMilliseconds(new Date(), startTime);
       progressed.current = Math.min(elpasedTime / duration, 1);
-      const yDistance = (finishArrowPosition.y - base.y) * progressed.current;
       const zDistance = (finishArrowPosition.z - base.z) * progressed.current;
 
-      console.log({
-        yDistance,
-        progress: progressed.current,
-      });
-
-      /*  const headMaterial = arrowHeadRef.current
+      const headMaterial = arrowHeadRef.current
         .material as THREE.MeshBasicMaterial;
       const bodyMaterial = arrowBodyRef.current
-        .material as THREE.MeshBasicMaterial; */
+        .material as THREE.MeshBasicMaterial;
 
-      // comment here
-      /* if (progressed.current) {
-        headMaterial.opacity = Math.max(progressed.current, 0.2);
-        bodyMaterial.opacity = Math.max(progressed.current, 0.2);
+      if (progressed.current) {
+        const opacityProgress = progressed.current * 10;
+        headMaterial.opacity = Math.min(opacityProgress, 1);
+        bodyMaterial.opacity = Math.min(opacityProgress, 1);
         headMaterial.transparent = true;
         bodyMaterial.transparent = true;
-
-        if (progressed.current >= 0.77) {
-          headMaterial.color = new THREE.Color(color);
-          bodyMaterial.color = new THREE.Color(color);
-        } else {
-          headMaterial.color = new THREE.Color("white");
-          bodyMaterial.color = new THREE.Color("white");
-        }
-      } */
-
-      if (direction === "up")
-        group.current.position
-          .copy(base)
-          .add(new THREE.Vector3(0, 0, zDistance));
-      if (direction === "down") {
-        console.log({
-          pos: new THREE.Vector3(1, 1, 1)
-            .copy(base)
-            .add(new THREE.Vector3(0, 0, zDistance)),
-        });
-        group.current.position
-          .copy(base)
-          .add(new THREE.Vector3(0, 0, zDistance));
       }
-      if (direction === "left")
-        group.current.position
-          .copy(base)
-          .add(new THREE.Vector3(0, 0, zDistance));
-      if (direction === "right")
-        group.current.position
-          .copy(base)
-          .add(new THREE.Vector3(0, 0, zDistance));
+
+      group.current.position.copy(base).add(new THREE.Vector3(0, 0, zDistance));
     }
   });
 
-  /* useFrame(() => {
-    if (!group.current) return;
-
-    group.current.rotation.set(
-      ...[
-        0,
-        group.current.rotation.y,
-        group.current.rotation.z + Math.PI / 2 / 100,
-      ]
-    );
-  }); */
-
-  console.log({ base, finishLinePosition });
-
   return (
     <>
-      <group
-        ref={group}
-        //rotation={rotation as [number, number, number]}
-        //position={base.clone().add(new THREE.Vector3(0, 0.4, 0))}
-        position={base}
-      >
+      <group ref={group} position={base}>
         <group rotation={rotation as [number, number, number]}>
-          {/*   <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[0.3, 0.3, 0.5]} />
-            <meshBasicMaterial color={"white"} transparent opacity={0.1} />
-          </mesh> */}
           <mesh ref={arrowHeadRef} position={[0, 0.015, 0]}>
             <coneGeometry args={[0.1, 0.15, 4]} />
             <meshBasicMaterial

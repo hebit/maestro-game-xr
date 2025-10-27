@@ -64,7 +64,7 @@ export function useGestureDirection(
           setGesture("none");
         }
 
-        console.log("Gesture detected:", {
+        /*  console.log("Gesture detected:", {
           delta: deltaVec,
           magnitude,
           threshold,
@@ -78,7 +78,7 @@ export function useGestureDirection(
                 ? "right"
                 : "left"
               : "none",
-        });
+        }); */
       } else {
         setGesture("none");
       }

@@ -3,9 +3,8 @@ import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { TimelineEvent, useTimeline } from "../../contexts";
 import { differenceInMilliseconds } from "date-fns";
-import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 import { Circle } from "../circle";
-import { usePointinDetector } from "./hooks";
+import { usePointinDetector, useAvaibilityState } from "./hooks";
 
 interface PointingDetectorProps {
   event: TimelineEvent;
@@ -17,7 +16,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
   const sphereRef = useRef<THREE.Mesh>(null);
   const innerSphereMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
 
-  const { isAvailable, isVisible } = useAvaibilityState(event);
+  const { isAvailable, isVisible } = useAvaibilityState(event, 1_700, 500, 500);
   const { matchEvent } = useTimeline();
 
   useFrame(() => {
@@ -53,7 +52,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
       <Circle position={spherePos} duration={2_000} color={color} />
 
       <mesh ref={sphereRef} castShadow receiveShadow position={spherePos}>
-        <sphereGeometry args={[0.4, 32, 32]} />
+        <sphereGeometry args={[0.5, 32, 32]} />
 
         <meshPhysicalMaterial
           metalness={0}
@@ -61,7 +60,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
           envMapIntensity={0.9}
           clearcoat={1}
           transparent={true}
-          opacity={0.5}
+          opacity={0.1}
           reflectivity={0.2}
         />
       </mesh>
