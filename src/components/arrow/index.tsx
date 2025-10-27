@@ -52,10 +52,10 @@ export function Arrow({
         progress: progressed.current,
       });
 
-      const headMaterial = arrowHeadRef.current
+      /*  const headMaterial = arrowHeadRef.current
         .material as THREE.MeshBasicMaterial;
       const bodyMaterial = arrowBodyRef.current
-        .material as THREE.MeshBasicMaterial;
+        .material as THREE.MeshBasicMaterial; */
 
       // comment here
       /* if (progressed.current) {
