@@ -8,10 +8,10 @@ import { Arrow } from "../arrow";
 
 export function GestureDetector({ event }: { event: TimelineEvent }) {
   const poseName = usePoseName(event.hand);
-  const gestureDirection = useGestureDirection();
+  const gestureDirection = useGestureDirection(event.hand);
   const { matchEvent } = useTimeline();
 
-  const { isAvailable, isVisible } = useAvaibilityState(event);
+  const { isAvailable, isVisible } = useAvaibilityState(event, 3_000, 300, 500);
   const [matched, setMatched] = useState(false);
 
   const executedMove = useMemo(() => {
