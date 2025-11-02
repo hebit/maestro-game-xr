@@ -5,7 +5,7 @@ import { useXR, useXRInputSourceState, useXRSpace } from "@react-three/xr";
 import { usePoseName } from "../../../hooks/use-pose-name";
 
 export function usePointinDetector(
-  isAvailableRef: boolean,
+  isAvailable: boolean,
   sphereRef: React.RefObject<THREE.Mesh | null>
 ) {
   const [isPointing, setIsPointing] = useState(false);
@@ -18,6 +18,7 @@ export function usePointinDetector(
   useFrame((_, __, frame) => {
     if (!session) return;
     if (poseName !== "pointing") return;
+    if (!isAvailable) return;
 
     const inputSource = sourceState?.inputSource;
 
@@ -39,11 +40,6 @@ export function usePointinDetector(
 
     const ray = new THREE.Ray(origin, direction);
 
-    if (!isAvailableRef) {
-      setIsPointing(false);
-      return;
-    }
-
     if (sphereRef.current) {
       const sphere = new THREE.Sphere();
       sphereRef.current.geometry.computeBoundingSphere();
@@ -51,6 +47,13 @@ export function usePointinDetector(
       sphere.applyMatrix4(sphereRef.current.matrixWorld);
 
       const intersecta = ray.intersectsSphere(sphere);
+
+      /* const material = sphereRef.current.material as THREE.MeshBasicMaterial;
+      if (intersecta) {
+        material.color.set("yellow");
+      } else {
+        material.color.set("white");
+      } */
 
       setIsPointing(intersecta);
     } else {
