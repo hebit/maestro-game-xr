@@ -1,10 +1,11 @@
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { TimelineEvent, useTimeline } from "../../contexts";
 import { differenceInMilliseconds } from "date-fns";
 import { Circle } from "../circle";
-import { usePointinDetector, useAvaibilityState } from "./hooks";
+import { usePointinDetector } from "./hooks";
+import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 
 interface PointingDetectorProps {
   event: TimelineEvent;
@@ -13,10 +14,23 @@ interface PointingDetectorProps {
 export function PointingDetector({ event }: PointingDetectorProps) {
   const spherePos = event.position;
 
+  const duration = 2_000;
+  const visibleTime = duration + 100;
+  const availableTime = 200;
+  const fadeOutTime = 300;
+
   const sphereRef = useRef<THREE.Mesh>(null);
   const innerSphereMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
 
-  const { isAvailable, isVisible } = useAvaibilityState(event, 1_700, 500, 500);
+  const [matched, setMatched] = useState(false);
+
+  const { isAvailable, isVisible, isOff } = useAvaibilityState(
+    event,
+    visibleTime,
+    availableTime,
+    fadeOutTime,
+    false
+  );
   const { matchEvent } = useTimeline();
 
   useFrame(() => {
@@ -35,24 +49,30 @@ export function PointingDetector({ event }: PointingDetectorProps) {
   const isPointing = usePointinDetector(isAvailable, sphereRef);
 
   useEffect(() => {
-    if (isPointing) {
+    if (isPointing && isAvailable) {
+      setMatched(true);
+    }
+  }, [isPointing, isAvailable]);
+
+  useEffect(() => {
+    if (matched) {
       matchEvent(event, 1);
     }
-  }, [isPointing]);
+  }, [matched]);
 
   const color = useMemo(() => {
-    if (!isAvailable) return "white";
-    return isPointing ? "green" : "red";
-  }, [isAvailable, isPointing]);
+    if (isOff && !matched) return "red";
+    return matched ? "green" : "white";
+  }, [isOff, matched]);
 
   if (!isVisible) return null;
 
   return (
     <>
-      <Circle position={spherePos} duration={2_000} color={color} />
+      <Circle position={spherePos} duration={duration} color={color} />
 
       <mesh ref={sphereRef} castShadow receiveShadow position={spherePos}>
-        <sphereGeometry args={[0.5, 32, 32]} />
+        <sphereGeometry args={[0.6, 32, 32]} />
 
         <meshPhysicalMaterial
           metalness={0}
