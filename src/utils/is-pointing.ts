@@ -42,5 +42,20 @@ export function isPointing(
     if (distance > 0.09) return false;
   }
 
+  const thumbTip = hand.get("thumb-tip");
+  if (thumbTip) {
+    const thumbPose = frame.getJointPose?.(thumbTip, referenceSpace)?.transform
+      .position;
+    if (thumbPose) {
+      const thumbDistance = Math.hypot(
+        thumbPose.x - wrist.x,
+        thumbPose.y - wrist.y,
+        thumbPose.z - wrist.z
+      );
+
+      if (thumbDistance > indexDistance * 1.2) return false;
+    }
+  }
+
   return true;
 }
