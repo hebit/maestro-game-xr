@@ -210,13 +210,6 @@ const eventsBySong = {
     {
       id: generateEventIdUUID(),
       hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 13.75, // 1.9s -> 1900ms
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-baton-down",
       position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 14, // 1.9s -> 1900ms
@@ -239,7 +232,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 15.5, // 1.9s -> 1900ms
     },
     {
@@ -267,7 +260,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 17.5, // 1.9s -> 1900ms
     },
     {
@@ -295,7 +288,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 19.5, // 1.9s -> 1900ms
     },
     {
@@ -323,7 +316,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 21.5, // 1.9s -> 1900ms
     },
   ] as Omit<TimelineEvent, "time">[],
