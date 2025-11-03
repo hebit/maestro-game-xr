@@ -26,8 +26,8 @@ interface SingleHandTimelineEvent {
     | "move-baton-right"
     | "move-baton-up"
     | "move-baton-down";
-  position: [number, number, number]; // [-1~1, 1.5~2.0, -1.5]
-  step: number; // 1.9s -> 1900ms
+  position: [number, number, number];
+  step: number;
   time: Date;
 }
 
@@ -41,8 +41,8 @@ interface BothHandsTimelineEvent {
     | "move-baton-right"
     | "move-baton-up"
     | "move-baton-down";
-  position: [number, number, number]; // [-1~1, 1.5~2.0, -1.5]
-  step: number; // 1.9s -> 1900ms
+  position: [number, number, number];
+  step: number;
   time: Date;
 }
 
@@ -89,235 +89,301 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 0, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 0,
     },
     {
       id: generateEventIdUUID(),
       hand: "both",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 1, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 1,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 2, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 2,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 3, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 3,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 4, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 4,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-down-open",
-      position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 5, // 1.9s -> 1900ms
+      position: [-1, 1.7, -1.5],
+      step: 5,
     },
+    // Plateia: Ê, Faraó
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 6.25, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 6.25,
     },
 
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 7, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 7,
     },
 
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 7.75, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 7.75,
     },
-
+    // Plateia: Ê, Faraó
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 8.25, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 8.25,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 9, // 1.9s -> 1900ms
+      position: [-1, 1.7, -1.5],
+      step: 9,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 9.75, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 9.75,
     },
+    // Plateia: Ê, Faraó
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 10.25, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 10.25,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 11, // 1.9s -> 1900ms
+      position: [-1, 1.7, -1.5],
+      step: 11,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 11.75, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 11.75,
     },
+    // Plateia: Ê, Faraó
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 12.25, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 12.25,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 13, // 1.9s -> 1900ms
+      position: [-1, 1.7, -1.5],
+      step: 13,
     },
+    // Deuses, divindade infinita do universo
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 14, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 14,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 14.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 14.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 15, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 15,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
-      step: 15.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].sax,
+      step: 15.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 16, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 16,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 16.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 16.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 17, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 17,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
-      step: 17.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].sax,
+      step: 17.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 18, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 18,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 18.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 18.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 19, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 19,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
-      step: 19.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].sax,
+      step: 19.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 20, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 20,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 20.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 20.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
-      step: 21, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].general,
+      step: 21,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
-      step: 21.5, // 1.9s -> 1900ms
+      position: bandComposition["varias-queixas"].sax,
+      step: 21.5,
+    },
+    // A Emersão
+    // Nem Osíris sabe como aconteceu
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 22,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 22.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 23,
+    },
+    // A Emersão
+    // Nem Osíris sabe como aconteceu (Coral)
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-palm-up-open",
+      position: bandComposition["varias-queixas"].general,
+      step: 24.25,
+    },
+    // A Ordem ou submissão do olho seu
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 26,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 26.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 27,
+    },
+    // Transformou-se na verdadeira humanidade (Coral)
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-palm-up-open",
+      position: bandComposition["varias-queixas"].general,
+      step: 28,
     },
   ] as Omit<TimelineEvent, "time">[],
 };

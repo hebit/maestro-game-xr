@@ -16,7 +16,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
 
   const duration = 2_000;
   const visibleTime = duration + 100;
-  const availableTime = 200;
+  const availableTime = 300;
   const fadeOutTime = 300;
 
   const sphereRef = useRef<THREE.Mesh>(null);
