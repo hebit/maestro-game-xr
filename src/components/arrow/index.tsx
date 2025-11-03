@@ -67,24 +67,37 @@ export function Arrow({
     <>
       <group ref={group} position={base}>
         <group rotation={rotation as [number, number, number]}>
-          <mesh ref={arrowHeadRef} position={[0, 0.015, 0]}>
-            <coneGeometry args={[0.1, 0.15, 4]} />
-            <meshBasicMaterial
-              color={color ?? "white"}
-              transparent
-              opacity={1}
-            />
-          </mesh>
-
           {!noTail && (
-            <mesh ref={arrowBodyRef} position={[0, -0.1, 0]}>
-              <boxGeometry args={[0.1, 0.1, 0.04]} />
-              <meshBasicMaterial
-                color={color ?? "white"}
-                transparent
-                opacity={1}
-              />
-            </mesh>
+            <>
+              <mesh ref={arrowHeadRef} position={[0, 0.015, 0]}>
+                <coneGeometry args={[0.1, 0.15, 4]} />
+                <meshBasicMaterial
+                  color={color ?? "white"}
+                  transparent
+                  opacity={1}
+                />
+              </mesh>
+
+              <mesh ref={arrowBodyRef} position={[0, -0.1, 0]}>
+                <boxGeometry args={[0.1, 0.1, 0.04]} />
+                <meshBasicMaterial
+                  color={color ?? "white"}
+                  transparent
+                  opacity={1}
+                />
+              </mesh>
+            </>
+          )}
+
+          {noTail && (
+            <>
+              <mesh ref={arrowHeadRef} position={[0, 0.015, 0]}></mesh>
+
+              <mesh ref={arrowBodyRef} position={[0, -0.1, 0]}>
+                <coneGeometry args={[0.1, 0.15, 4]} />
+                <meshBasicMaterial color="yellow" transparent opacity={1} />
+              </mesh>
+            </>
           )}
         </group>
       </group>
