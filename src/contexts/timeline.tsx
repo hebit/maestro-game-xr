@@ -377,13 +377,154 @@ const eventsBySong = {
       position: bandComposition["varias-queixas"].general,
       step: 27,
     },
+    /*    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 28,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 28.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 29,
+    }, */
     // Transformou-se na verdadeira humanidade (Coral)
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
       position: bandComposition["varias-queixas"].general,
-      step: 28,
+      step: 28.5,
+    },
+    // Epopéia
+    // Do código de Gerbi
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 30,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 30.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 31,
+    },
+    // E Nut gerou as estrelas (Coral)
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-palm-up-open",
+      position: bandComposition["varias-queixas"].general,
+      step: 32.5,
+    },
+    // Osíris proclamou matrimônio com Ísis
+    // E o mau Set, irado, o assassinou e impera
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 33,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 33.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 34,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 35,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 36.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 37,
+    },
+    // Hórus levando avante a vingança do pai
+    // Derrotando o império do mau Set
+    // Alô Bahia, canta aí
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 38,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 38.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 39,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general,
+      step: 40,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 40.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general,
+      step: 41,
     },
   ] as Omit<TimelineEvent, "time">[],
 };
