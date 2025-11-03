@@ -53,7 +53,7 @@ export const Button = ({ position, onClick, label }: ButtonProps) => {
 export function Song() {
   useMemo(() => {
     return new Tone.Player({
-      url: "./varias-queixas.mp3",
+      url: "./farao.mp3",
       // loop: true,
       autostart: true,
     }).toDestination();

@@ -9,7 +9,7 @@ export function LobbyPage() {
       <Button
         position={[0, 1.0, -2]}
         label={"FARAO"}
-        onClick={() => navigate("/maestro-game-xr/play/varias-queixas")}
+        onClick={() => navigate("/maestro-game-xr/play/farao")}
       />
     </>
   );

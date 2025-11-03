@@ -68,14 +68,14 @@ const presetPositions: Record<string, [number, number, number]> = {
 };
 
 const songConfig = {
-  ["varias-queixas" as string]: {
+  ["farao" as string]: {
     bpm: 107,
     startTime: 7_367,
   },
 };
 
 const bandComposition = {
-  ["varias-queixas"]: {
+  ["farao"]: {
     sax: presetPositions.right,
     guitar: presetPositions.left,
     drum: presetPositions.middle,
@@ -84,40 +84,40 @@ const bandComposition = {
 };
 
 const eventsBySong = {
-  ["varias-queixas" as string]: [
+  ["farao" as string]: [
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 0,
     },
     {
       id: generateEventIdUUID(),
       hand: "both",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 1,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 2,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 3,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 4,
     },
     {
@@ -132,7 +132,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 6.25,
     },
 
@@ -140,7 +140,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 7,
     },
 
@@ -148,7 +148,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 7.75,
     },
     // Plateia: Ê, Faraó
@@ -156,7 +156,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 8.25,
     },
     {
@@ -170,7 +170,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 9.75,
     },
     // Plateia: Ê, Faraó
@@ -178,7 +178,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 10.25,
     },
     {
@@ -192,7 +192,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 11.75,
     },
     // Plateia: Ê, Faraó
@@ -200,7 +200,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 12.25,
     },
     {
@@ -215,112 +215,112 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 14,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 14.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 15,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax,
+      position: bandComposition["farao"].sax,
       step: 15.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 16,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 16.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 17,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax,
+      position: bandComposition["farao"].sax,
       step: 17.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 18,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 18.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 19,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax,
+      position: bandComposition["farao"].sax,
       step: 19.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 20,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 20.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 21,
     },
     {
       id: generateEventIdUUID(),
       hand: "left",
       move: "pointing",
-      position: bandComposition["varias-queixas"].sax,
+      position: bandComposition["farao"].sax,
       step: 21.5,
     },
     // A Emersão
@@ -329,21 +329,21 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 22,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 22.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 23,
     },
     // A Emersão
@@ -352,7 +352,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 24.25,
     },
     // A Ordem ou submissão do olho seu
@@ -360,42 +360,42 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 26,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 26.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 27,
     },
     /*    {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 28,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 28.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 29,
     }, */
     // Transformou-se na verdadeira humanidade (Coral)
@@ -403,8 +403,8 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general,
-      step: 28.5,
+      position: bandComposition["farao"].general,
+      step: 28.75,
     },
     // Epopéia
     // Do código de Gerbi
@@ -412,21 +412,21 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 30,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 30.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 31,
     },
     // E Nut gerou as estrelas (Coral)
@@ -434,7 +434,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 32.5,
     },
     // Osíris proclamou matrimônio com Ísis
@@ -443,42 +443,42 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 33,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 33.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 34,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 35,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 36.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 37,
     },
     // Hórus levando avante a vingança do pai
@@ -488,43 +488,73 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 38,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 38.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 39,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-down",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 40,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 40.5,
     },
     {
       id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: bandComposition["varias-queixas"].general,
+      position: bandComposition["farao"].general,
       step: 41,
+    },
+    // Cadê?
+    // Tutancâmon
+    {
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "move-baton-up",
+      position: bandComposition["farao"].general,
+      step: 42,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "move-baton-up",
+      position: bandComposition["farao"].general,
+      step: 42.25,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "move-baton-up",
+      position: bandComposition["farao"].general,
+      step: 42.5,
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "move-baton-up",
+      position: bandComposition["farao"].general,
+      step: 42.75,
     },
   ] as Omit<TimelineEvent, "time">[],
 };
@@ -534,12 +564,12 @@ interface TimelineContextProviderProps extends React.PropsWithChildren {
 }
 
 const player = new Tone.Player({
-  url: "/maestro-game-xr/varias-queixas.mp3",
+  url: "/maestro-game-xr/farao.mp3",
   autostart: false,
 }).toDestination();
 
 export function TimelineContextProvider({
-  songId = "varias-queixas",
+  songId = "farao",
   children,
 }: TimelineContextProviderProps) {
   const startTime = useMemo(() => new Date(), []);
