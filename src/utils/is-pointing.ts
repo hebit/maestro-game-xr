@@ -53,7 +53,9 @@ export function isPointing(
         thumbPose.z - wrist.z
       );
 
-      if (thumbDistance > indexDistance * 1.2) return false;
+      const maxThumbDistance = Math.max(indexDistance * 1.6, 0.11);
+
+      if (thumbDistance > maxThumbDistance) return false;
     }
   }
 

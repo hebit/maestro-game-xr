@@ -40,28 +40,69 @@ export function useTimeline() {
   return useContext(TimelineContext);
 }
 
+const presetPositions: Record<string, [number, number, number]> = {
+  middle: [0, 1.7, -1.5],
+  left: [-1, 1.7, -1.5],
+  right: [1, 1.7, -1.5],
+};
+
+const songConfig = {
+  ["varias-queixas" as string]: {
+    bpm: 107,
+    startTime: 7_367,
+  },
+};
+
 const eventsBySong = {
   ["varias-queixas" as string]: [
     {
       id: "hash-0",
-      hand: "left",
-      move: "pointing",
-      position: [1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 2_900, // 1.9s -> 1900ms
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 0, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-00001",
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 1, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-0",
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 2, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-00001",
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 3, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-00002",
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 4, // 1.9s -> 1900ms
     },
     {
       id: "hash-01",
-      hand: "left",
-      move: "pointing",
+      hand: "right",
+      move: "move-palm-down-open",
       position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 4_900, // 1.9s -> 1900ms
+      step: 5, // 1.9s -> 1900ms
     },
     {
       id: "hash-11",
       hand: "right",
-      move: "move-baton-down",
+      move: "move-palm-up-open",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 6_500, // 1.9s -> 1900ms
+      step: 6.25, // 1.9s -> 1900ms
     },
 
     {
@@ -69,72 +110,93 @@ const eventsBySong = {
       hand: "right",
       move: "move-baton-up",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 7_500, // 1.9s -> 1900ms
+      step: 7, // 1.9s -> 1900ms
     },
 
     {
       id: "hash-13",
       hand: "right",
-      move: "move-baton-down",
+      move: "move-baton-up",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 8_500, // 1.9s -> 1900ms
+      step: 7.75, // 1.9s -> 1900ms
     },
 
     {
       id: "hash-14",
       hand: "right",
-      move: "move-baton-up",
+      move: "move-palm-up-open",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 9_500, // 1.9s -> 1900ms
+      step: 8.25, // 1.9s -> 1900ms
     },
     {
       id: "hash-2",
-      hand: "left",
-      move: "pointing",
+      hand: "right",
+      move: "move-baton-up",
       position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 10_900, // 1.9s -> 1900ms
+      step: 9, // 1.9s -> 1900ms
     },
     {
       id: "hash-3",
       hand: "right",
       move: "move-baton-up",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 13_000, // 1.9s -> 1900ms
+      step: 9.75, // 1.9s -> 1900ms
     },
     {
       id: "hash-4",
       hand: "right",
-      move: "move-baton-left",
+      move: "move-palm-up-open",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 14_500, // 1.9s -> 1900ms
+      step: 10.25, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-2",
+      hand: "right",
+      move: "move-baton-up",
+      position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 11, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-3",
+      hand: "right",
+      move: "move-baton-up",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 11.75, // 1.9s -> 1900ms
+    },
+    {
+      id: "hash-4",
+      hand: "right",
+      move: "move-palm-up-open",
+      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      step: 12.25, // 1.9s -> 1900ms
     },
     {
       id: "hash-5",
       hand: "left",
       move: "pointing",
       position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 19_900, // 1.9s -> 1900ms
+      step: 13, // 1.9s -> 1900ms
     },
     {
       id: "hash-6",
       hand: "left",
       move: "pointing",
       position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 21_900, // 1.9s -> 1900ms
+      step: 14, // 1.9s -> 1900ms
     },
     {
       id: "hash-7",
       hand: "left",
       move: "pointing",
       position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 115_000, // 1.9s -> 1900ms
+      step: 15, // 1.9s -> 1900ms
     },
     {
       id: "hash-8",
       hand: "right",
       move: "move-palm-down-open",
       position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
-      step: 118_000, // 1.9s -> 1900ms
+      step: 16, // 1.9s -> 1900ms
     },
   ] as Omit<TimelineEvent, "time">[],
 };
@@ -155,10 +217,19 @@ export function TimelineContextProvider({
   const startTime = useMemo(() => new Date(), []);
 
   const events = useMemo(() => {
-    return eventsBySong[songId].map((event) => ({
-      ...event,
-      time: addMilliseconds(startTime, event.step),
-    })) as TimelineEvent[];
+    function calculateStepTime(step: number) {
+      const bpm = songConfig[songId].bpm;
+      const secondsPerBeat = 60 / bpm;
+      return step * (secondsPerBeat * 4) * 1000;
+    }
+    return eventsBySong[songId].map((event) => {
+      const eventRelativeTime = calculateStepTime(event.step);
+      const eventTime = songConfig[songId].startTime + eventRelativeTime;
+      return {
+        ...event,
+        time: addMilliseconds(startTime, eventTime),
+      };
+    }) as TimelineEvent[];
   }, [startTime]);
 
   const [score, setScore] = useState<number>(0);

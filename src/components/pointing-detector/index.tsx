@@ -74,15 +74,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
       <mesh ref={sphereRef} castShadow receiveShadow position={spherePos}>
         <sphereGeometry args={[0.6, 32, 32]} />
 
-        <meshPhysicalMaterial
-          metalness={0}
-          roughness={1}
-          envMapIntensity={0.9}
-          clearcoat={1}
-          transparent={true}
-          opacity={0.1}
-          reflectivity={0.2}
-        />
+        <meshBasicMaterial color="white" transparent={true} opacity={0.5} />
       </mesh>
     </>
   );
