@@ -6,7 +6,8 @@ type PalmState = {
 export function isPalmOpen(
   hand: XRHand,
   frame: XRFrame,
-  referenceSpace: XRSpace
+  referenceSpace: XRSpace,
+  side: "left" | "right"
 ): PalmState | null {
   const wristJoint = hand.get("wrist");
   const indexBase = hand.get("index-finger-metacarpal");
@@ -43,8 +44,8 @@ export function isPalmOpen(
   };
 
   let orientation: PalmState["orientation"] = "unknown";
-  if (normal.y < 0) orientation = "up";
-  else if (normal.y) orientation = "down";
+  if (normal.y > 0) orientation = side === "right" ? "up" : "down";
+  else if (normal.y < 0) orientation = side === "right" ? "down" : "up";
 
   let extendedCount = 0;
   const fingers = [
