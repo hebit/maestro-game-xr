@@ -29,7 +29,7 @@ export function PointingDetector({ event }: PointingDetectorProps) {
     visibleTime,
     availableTime,
     fadeOutTime,
-    false
+    100
   );
   const { matchEvent } = useTimeline();
 
@@ -72,9 +72,9 @@ export function PointingDetector({ event }: PointingDetectorProps) {
       <Circle position={spherePos} duration={duration} color={color} />
 
       <mesh ref={sphereRef} castShadow receiveShadow position={spherePos}>
-        <sphereGeometry args={[0.6, 32, 32]} />
+        <sphereGeometry args={[0.7, 32, 32]} />
 
-        <meshBasicMaterial color="white" transparent={true} opacity={0.5} />
+        <meshBasicMaterial color="white" transparent={true} opacity={0.1} />
       </mesh>
     </>
   );

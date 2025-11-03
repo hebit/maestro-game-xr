@@ -6,3 +6,4 @@ export * from "./custom-hand";
 export * from "./ui";
 export * from "./person";
 export * from "./circle";
+export * from "./both-gesture-detector";

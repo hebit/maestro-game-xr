@@ -11,7 +11,11 @@ import {
 
 import * as Tone from "tone";
 
-export interface TimelineEvent {
+export function generateEventIdUUID(): string {
+  return crypto.randomUUID();
+}
+
+interface SingleHandTimelineEvent {
   id: string;
   hand: "left" | "right";
   move:
@@ -27,12 +31,29 @@ export interface TimelineEvent {
   time: Date;
 }
 
+interface BothHandsTimelineEvent {
+  id: string;
+  hand: "both";
+  move:
+    | "move-palm-down-open"
+    | "move-palm-up-open"
+    | "move-baton-left"
+    | "move-baton-right"
+    | "move-baton-up"
+    | "move-baton-down";
+  position: [number, number, number]; // [-1~1, 1.5~2.0, -1.5]
+  step: number; // 1.9s -> 1900ms
+  time: Date;
+}
+
+export type TimelineEvent = SingleHandTimelineEvent | BothHandsTimelineEvent;
+
 export const TimelineContext = createContext({
   startTime: new Date(),
   events: [] as TimelineEvent[],
   score: 0,
   fails: [] as TimelineEvent["id"][],
-  songId: "varias-queixas" as string,
+  songId: generateEventIdUUID() as string,
   matchEvent(_event: TimelineEvent, _rating?: number) {},
 });
 
@@ -53,150 +74,257 @@ const songConfig = {
   },
 };
 
+const bandComposition = {
+  ["varias-queixas"]: {
+    sax: presetPositions.right,
+    guitar: presetPositions.left,
+    drum: presetPositions.middle,
+    general: presetPositions.middle,
+  },
+};
+
 const eventsBySong = {
   ["varias-queixas" as string]: [
     {
-      id: "hash-0",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 0, // 1.9s -> 1900ms
     },
     {
-      id: "hash-00001",
-      hand: "right",
+      id: generateEventIdUUID(),
+      hand: "both",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 1, // 1.9s -> 1900ms
     },
     {
-      id: "hash-0",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 2, // 1.9s -> 1900ms
     },
     {
-      id: "hash-00001",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 3, // 1.9s -> 1900ms
     },
     {
-      id: "hash-00002",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 4, // 1.9s -> 1900ms
     },
     {
-      id: "hash-01",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-down-open",
       position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 5, // 1.9s -> 1900ms
     },
     {
-      id: "hash-11",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 6.25, // 1.9s -> 1900ms
     },
 
     {
-      id: "hash-12",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 7, // 1.9s -> 1900ms
     },
 
     {
-      id: "hash-13",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 7.75, // 1.9s -> 1900ms
     },
 
     {
-      id: "hash-14",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 8.25, // 1.9s -> 1900ms
     },
     {
-      id: "hash-2",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
       position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 9, // 1.9s -> 1900ms
     },
     {
-      id: "hash-3",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 9.75, // 1.9s -> 1900ms
     },
     {
-      id: "hash-4",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 10.25, // 1.9s -> 1900ms
     },
     {
-      id: "hash-2",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
       position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 11, // 1.9s -> 1900ms
     },
     {
-      id: "hash-3",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-baton-up",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 11.75, // 1.9s -> 1900ms
     },
     {
-      id: "hash-4",
+      id: generateEventIdUUID(),
       hand: "right",
       move: "move-palm-up-open",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 12.25, // 1.9s -> 1900ms
     },
     {
-      id: "hash-5",
-      hand: "left",
-      move: "pointing",
-      position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: [-1, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
       step: 13, // 1.9s -> 1900ms
     },
     {
-      id: "hash-6",
-      hand: "left",
-      move: "pointing",
-      position: [0, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 13.75, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 14, // 1.9s -> 1900ms
     },
     {
-      id: "hash-7",
-      hand: "left",
-      move: "pointing",
-      position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 14.5, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 15, // 1.9s -> 1900ms
     },
     {
-      id: "hash-8",
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "pointing",
+      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      step: 15.5, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
       hand: "right",
-      move: "move-palm-down-open",
-      position: [0.5, 1.7, -1.5], // [-1~1, 1.5~2.0, -1.5]
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
       step: 16, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 16.5, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 17, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "pointing",
+      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      step: 17.5, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 18, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 18.5, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 19, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "pointing",
+      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      step: 19.5, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-down",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 20, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 20.5, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "right",
+      move: "move-baton-up",
+      position: bandComposition["varias-queixas"].general, // [-1~1, 1.5~2.0, -1.5]
+      step: 21, // 1.9s -> 1900ms
+    },
+    {
+      id: generateEventIdUUID(),
+      hand: "left",
+      move: "pointing",
+      position: bandComposition["varias-queixas"].sax, // [-1~1, 1.5~2.0, -1.5]
+      step: 21.5, // 1.9s -> 1900ms
     },
   ] as Omit<TimelineEvent, "time">[],
 };

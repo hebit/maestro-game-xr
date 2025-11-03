@@ -8,11 +8,17 @@ export function Arrow({
   color,
   duration = 3_000,
   noTail = false,
+  largerFinishLine = false,
+  hideFinishLine = false,
+  finishLineXShift = 0,
 }: {
   direction: "up" | "down" | "left" | "right";
   color?: string;
   duration?: number;
   noTail?: boolean;
+  largerFinishLine?: boolean;
+  hideFinishLine?: boolean;
+  finishLineXShift?: number;
 }) {
   const group = useRef<THREE.Group>(null);
   const finishLineRef = useRef<THREE.Group>(null);
@@ -63,6 +69,8 @@ export function Arrow({
     }
   });
 
+  const finishLineWidth = largerFinishLine ? 1.2 : 0.7;
+
   return (
     <>
       <group ref={group} position={base}>
@@ -103,21 +111,23 @@ export function Arrow({
       </group>
 
       <group ref={finishLineRef} position={finishLinePosition}>
-        <group position={[0, -0.14, 0]}>
-          <mesh position={[0, 0.5, 0]}>
-            <boxGeometry args={[0.7, 1.0, 0.02]} />
-            <meshBasicMaterial
-              color={color ?? "blue"}
-              transparent
-              opacity={0.1}
-            />
-          </mesh>
+        {!hideFinishLine && (
+          <group position={[finishLineXShift, -0.14, 0]}>
+            <mesh position={[0, 0.5, 0]}>
+              <boxGeometry args={[finishLineWidth, 1.0, 0.02]} />
+              <meshBasicMaterial
+                color={color ?? "blue"}
+                transparent
+                opacity={0.1}
+              />
+            </mesh>
 
-          <mesh>
-            <boxGeometry args={[0.7, 0.05, 0.02]} />
-            <meshBasicMaterial color="white" transparent opacity={0.8} />
-          </mesh>
-        </group>
+            <mesh>
+              <boxGeometry args={[finishLineWidth, 0.05, 0.02]} />
+              <meshBasicMaterial color="white" transparent opacity={0.8} />
+            </mesh>
+          </group>
+        )}
       </group>
     </>
   );

@@ -5,6 +5,7 @@ import { addSeconds, subSeconds } from "date-fns";
 import { PointingDetector } from "../pointing-detector";
 import { GestureDetector } from "../gesture-detector";
 import { HandRay } from "../hand-ray";
+import { BothGestureDetector } from "../both-gesture-detector";
 
 export function Canva() {
   const { events } = useTimeline();
@@ -27,6 +28,10 @@ export function Canva() {
     return candidateEvents.map((event) => {
       if (event.move === "pointing") {
         return <PointingDetector event={event} key={event.id} />;
+      }
+
+      if (event.hand === "both") {
+        return <BothGestureDetector event={event} key={event.id} />;
       }
 
       return <GestureDetector event={event} key={event.id} />;

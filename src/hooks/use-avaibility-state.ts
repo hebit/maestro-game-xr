@@ -8,7 +8,7 @@ export function useAvaibilityState(
   visibleTime: number | undefined = 2_000,
   availableTime: number | undefined = 300,
   shutdownTime: number | undefined = 500,
-  usePostEventDetection: boolean | undefined = true
+  usePostEventDetection: number | undefined = availableTime
 ) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
@@ -25,9 +25,8 @@ export function useAvaibilityState(
     } else {
       const shouldRender =
         differenceInMilliseconds(now, event.time) < shutdownTime;
-      const shouldBeAvailable = usePostEventDetection
-        ? differenceInMilliseconds(now, event.time) < availableTime
-        : false;
+      const shouldBeAvailable =
+        differenceInMilliseconds(now, event.time) < usePostEventDetection;
       setIsVisible(shouldRender);
       setIsAvailable(shouldBeAvailable);
       setIsOff(!shouldBeAvailable);

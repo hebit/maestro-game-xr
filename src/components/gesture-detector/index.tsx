@@ -6,7 +6,11 @@ import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 
 import { Arrow } from "../arrow";
 
-export function GestureDetector({ event }: { event: TimelineEvent }) {
+export function GestureDetector({
+  event,
+}: {
+  event: TimelineEvent & { hand: "left" | "right" };
+}) {
   const poseName = usePoseName(event.hand);
   const gestureDirection = useGestureDirection(event.hand);
   const { matchEvent } = useTimeline();
