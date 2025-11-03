@@ -528,7 +528,7 @@ const eventsBySong = {
     },
     // Cadê?
     // Tutancâmon
-    {
+    /*   {
       id: generateEventIdUUID(),
       hand: "left",
       move: "move-baton-up",
@@ -555,7 +555,7 @@ const eventsBySong = {
       move: "move-baton-up",
       position: bandComposition["farao"].general,
       step: 42.75,
-    },
+    }, */
   ] as Omit<TimelineEvent, "time">[],
 };
 
