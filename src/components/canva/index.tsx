@@ -6,6 +6,7 @@ import { PointingDetector } from "../pointing-detector";
 import { GestureDetector } from "../gesture-detector";
 import { HandRay } from "../hand-ray";
 import { BothGestureDetector } from "../both-gesture-detector";
+import { PalmDetector } from "../palm-detector";
 
 export function Canva() {
   const { events } = useTimeline();
@@ -20,7 +21,7 @@ export function Canva() {
       (event) => event.time >= start && event.time <= end
     );
 
-    const candidates = nearEvents.slice(0, 4);
+    const candidates = nearEvents.slice(0, 10);
     setCandidateEvents(candidates);
   });
 
@@ -28,6 +29,13 @@ export function Canva() {
     return candidateEvents.map((event) => {
       if (event.move === "pointing") {
         return <PointingDetector event={event} key={event.id} />;
+      }
+
+      if (
+        event.move === "move-palm-down-open" ||
+        event.move === "move-palm-up-open"
+      ) {
+        return <PalmDetector event={event} key={event.id} />;
       }
 
       if (event.hand === "both") {

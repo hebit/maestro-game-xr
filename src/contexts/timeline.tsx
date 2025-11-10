@@ -1,5 +1,5 @@
 import { Text } from "@react-three/drei";
-import { addMilliseconds } from "date-fns";
+import { addMilliseconds, format } from "date-fns";
 import {
   createContext,
   useCallback,
@@ -22,6 +22,8 @@ interface SingleHandTimelineEvent {
     | "pointing"
     | "move-palm-down-open"
     | "move-palm-up-open"
+    | "move-palm-down-open"
+    | "move-palm-up-open"
     | "move-baton-left"
     | "move-baton-right"
     | "move-baton-up"
@@ -35,8 +37,6 @@ interface BothHandsTimelineEvent {
   id: string;
   hand: "both";
   move:
-    | "move-palm-down-open"
-    | "move-palm-up-open"
     | "move-baton-left"
     | "move-baton-right"
     | "move-baton-up"
@@ -86,476 +86,845 @@ const bandComposition = {
 const eventsBySong = {
   ["farao" as string]: [
     {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-baton-up",
+      id: "1",
+      step: 1.25,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 0,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "both",
       move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 1.75,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 1,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 2.25,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 2,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 2.75,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 3,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 3.25,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 4,
     },
     {
+      move: "move-baton-up",
       id: generateEventIdUUID(),
+      step: 3.75,
       hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 4.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 4.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
       move: "move-palm-down-open",
-      position: [-1, 1.7, -1.5],
-      step: 5,
-    },
-    // Plateia: Ê, Faraó
-    {
       id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-palm-up-open",
-      position: bandComposition["farao"].general,
-      step: 6.25,
+      step: 5.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
     },
 
     {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 7,
-    },
-
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 7.75,
-    },
-    // Plateia: Ê, Faraó
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["farao"].general,
+      id: generateEventIdUUID(),
+      step: 7.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
       step: 8.25,
-    },
-    {
-      id: generateEventIdUUID(),
       hand: "right",
-      move: "move-baton-up",
-      position: [-1, 1.7, -1.5],
-      step: 9,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
       position: bandComposition["farao"].general,
-      step: 9.75,
     },
-    // Plateia: Ê, Faraó
     {
+      move: "move-baton-up",
       id: generateEventIdUUID(),
+      step: 8.75,
       hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
       move: "move-palm-up-open",
-      position: bandComposition["farao"].general,
+      id: generateEventIdUUID(),
+      step: 9.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
       step: 10.25,
-    },
-    {
-      id: generateEventIdUUID(),
       hand: "right",
-      move: "move-baton-up",
-      position: [-1, 1.7, -1.5],
-      step: 11,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
       position: bandComposition["farao"].general,
-      step: 11.75,
     },
-    // Plateia: Ê, Faraó
     {
+      move: "move-baton-up",
       id: generateEventIdUUID(),
+      step: 10.75,
       hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
       move: "move-palm-up-open",
-      position: bandComposition["farao"].general,
+      id: generateEventIdUUID(),
+      step: 11.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
       step: 12.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-baton-up",
-      position: [-1, 1.7, -1.5],
-      step: 13,
-    },
-    // Deuses, divindade infinita do universo
-    {
       id: generateEventIdUUID(),
+      step: 12.75,
       hand: "right",
-      move: "move-baton-down",
       position: bandComposition["farao"].general,
-      step: 14,
     },
+
     {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 14.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 15,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "left",
-      move: "pointing",
-      position: bandComposition["farao"].sax,
-      step: 15.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 16,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 16.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 17,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "left",
-      move: "pointing",
-      position: bandComposition["farao"].sax,
-      step: 17.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 18,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 18.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 19,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "left",
-      move: "pointing",
-      position: bandComposition["farao"].sax,
-      step: 19.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 20,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 20.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 21,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "left",
-      move: "pointing",
-      position: bandComposition["farao"].sax,
-      step: 21.5,
-    },
-    // A Emersão
-    // Nem Osíris sabe como aconteceu
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 22,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 22.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 23,
-    },
-    // A Emersão
-    // Nem Osíris sabe como aconteceu (Coral)
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 13.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 14.25,
+      hand: "right",
       position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 14.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 15.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 15.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 15.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 16.125,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 17.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 17.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 17.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 18.125,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 19.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 19.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 19.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 20.125,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 21.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 21.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 21.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 22.125,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 23.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 23.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 23.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 24.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
       step: 24.25,
-    },
-    // A Ordem ou submissão do olho seu
-    {
-      id: generateEventIdUUID(),
       hand: "right",
-      move: "move-baton-down",
       position: bandComposition["farao"].general,
-      step: 26,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 24.75,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 26.5,
     },
+
     {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 27,
-    },
-    /*    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 28,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 28.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 29,
-    }, */
-    // Transformou-se na verdadeira humanidade (Coral)
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 25.25,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 27.0,
+      hand: "right",
       position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 27.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 27.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 28.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 28.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
       step: 28.75,
-    },
-    // Epopéia
-    // Do código de Gerbi
-    {
-      id: generateEventIdUUID(),
       hand: "right",
-      move: "move-baton-down",
       position: bandComposition["farao"].general,
-      step: 30,
     },
+
     {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 30.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 31,
-    },
-    // E Nut gerou as estrelas (Coral)
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
       move: "move-palm-up-open",
-      position: bandComposition["farao"].general,
-      step: 32.5,
-    },
-    // Osíris proclamou matrimônio com Ísis
-    // E o mau Set, irado, o assassinou e impera
-    {
       id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 33,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 33.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 34,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 35,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 36.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 37,
-    },
-    // Hórus levando avante a vingança do pai
-    // Derrotando o império do mau Set
-    // Alô Bahia, canta aí
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 38,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 38.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 39,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-down",
-      position: bandComposition["farao"].general,
-      step: 40,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 40.5,
-    },
-    {
-      id: generateEventIdUUID(),
-      hand: "right",
-      move: "move-baton-up",
-      position: bandComposition["farao"].general,
-      step: 41,
-    },
-    // Cadê?
-    // Tutancâmon
-    /*   {
-      id: generateEventIdUUID(),
+      step: 29.25,
       hand: "left",
-      move: "move-baton-up",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 31.0,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 42,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "left",
       move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 31.25,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 42.25,
     },
     {
-      id: generateEventIdUUID(),
-      hand: "left",
       move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 31.75,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 42.5,
     },
     {
+      move: "move-baton-down",
       id: generateEventIdUUID(),
-      hand: "left",
-      move: "move-baton-up",
+      step: 32.0,
+      hand: "right",
       position: bandComposition["farao"].general,
-      step: 42.75,
-    }, */
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 32.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 32.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 33.25,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 35.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 35.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 35.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 36.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 36.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 36.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 39.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 39.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 39.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 40.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 49.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 40.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 42.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 42.125,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 42.375,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 42.625,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 42.875,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 43.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 43.125,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 43.375,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 43.625,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 43.875,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 44.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 44.125,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 44.375,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 44.625,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 44.875,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 45.125,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 45.375,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 45.625,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 45.875,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 47.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 48.0,
+      hand: "left",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 49.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 51.0,
+      hand: "left",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 53.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 55.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-right",
+      id: generateEventIdUUID(),
+      step: 55.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-right",
+      id: generateEventIdUUID(),
+      step: 55.5,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-right",
+      id: generateEventIdUUID(),
+      step: 55.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 56.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 56.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 57.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 59.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-right",
+      id: generateEventIdUUID(),
+      step: 59.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-right",
+      id: generateEventIdUUID(),
+      step: 59.5,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-right",
+      id: generateEventIdUUID(),
+      step: 59.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 60.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 60.0,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+
+    {
+      move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 61.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 62.5,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 63.25,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 64.5,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 65.25,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 66.0,
+      hand: "left",
+      position: bandComposition["farao"].guitar,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 66.25,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 66.5,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 66.75,
+      hand: "right",
+      position: bandComposition["farao"].general,
+    },
   ] as Omit<TimelineEvent, "time">[],
 };
 
@@ -578,11 +947,13 @@ export function TimelineContextProvider({
     function calculateStepTime(step: number) {
       const bpm = songConfig[songId].bpm;
       const secondsPerBeat = 60 / bpm;
-      return step * (secondsPerBeat * 4) * 1000;
+      return (step - 1) * (secondsPerBeat * 4) * 1000;
     }
+
     return eventsBySong[songId].map((event) => {
       const eventRelativeTime = calculateStepTime(event.step);
       const eventTime = songConfig[songId].startTime + eventRelativeTime;
+
       return {
         ...event,
         time: addMilliseconds(startTime, eventTime),
@@ -602,6 +973,7 @@ export function TimelineContextProvider({
 
   useEffect(() => {
     console.log("AUDIO PLAY");
+    console.log("START: ", format(new Date(), "HH:mm:ss.SSS"));
     player.start();
   }, []);
 

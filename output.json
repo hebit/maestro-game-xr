@@ -1,0 +1,674 @@
+[
+  {
+    "id": "750a371f-a690-4d65-8b6f-f2c38b286beb",
+    "hand": "both",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 1,
+    "time": 7367
+  },
+  {
+    "id": "e788b360-809c-4dd9-ad9d-c3449164937c",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 2,
+    "time": 9609.990654205607
+  },
+  {
+    "id": "3afa8dfc-878c-44b3-91ab-c50011f1e421",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 3,
+    "time": 11852.981308411214
+  },
+  {
+    "id": "aa100177-1b97-4837-b68e-e1e56c2e0c06",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 4,
+    "time": 14095.971962616823
+  },
+  {
+    "id": "cae0486c-079b-4151-8eb9-d54e5984a4a3",
+    "hand": "right",
+    "move": "move-palm-down-open",
+    "position": [
+      -1,
+      1.7,
+      -1.5
+    ],
+    "step": 5,
+    "time": 16338.96261682243
+  },
+  {
+    "id": "fe6ac219-60e9-4837-b690-a9e1db09f2a4",
+    "hand": "right",
+    "move": "move-palm-up-open",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 6.25,
+    "time": 19142.700934579436
+  },
+  {
+    "id": "7434627a-a35c-4825-931e-9d37a8236707",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 7,
+    "time": 20824.943925233645
+  },
+  {
+    "id": "6adfb1e5-4c1f-4a54-aaf8-ed55eb9a8440",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 7.75,
+    "time": 22507.186915887847
+  },
+  {
+    "id": "c70e99cd-bcff-4c21-9afc-ee5e97785d6a",
+    "hand": "right",
+    "move": "move-palm-up-open",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 8.25,
+    "time": 23628.682242990653
+  },
+  {
+    "id": "fb9bf04f-8df1-40e9-a5e9-453a02fa9e0f",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      -1,
+      1.7,
+      -1.5
+    ],
+    "step": 9,
+    "time": 25310.92523364486
+  },
+  {
+    "id": "04e486b0-e424-4eaa-b6eb-4a7e439fcf57",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 9.75,
+    "time": 26993.168224299065
+  },
+  {
+    "id": "b36e7994-5449-444f-a657-f240fcff729d",
+    "hand": "right",
+    "move": "move-palm-up-open",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 10.25,
+    "time": 28114.663551401867
+  },
+  {
+    "id": "9f16fbd4-68ac-4b7b-a966-0a256438e80f",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      -1,
+      1.7,
+      -1.5
+    ],
+    "step": 11,
+    "time": 29796.906542056073
+  },
+  {
+    "id": "e717b6c3-3024-4bc2-a029-42d041a46a57",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 11.75,
+    "time": 31479.14953271028
+  },
+  {
+    "id": "12d0973b-237a-4dcb-a4dc-c1cfbfb7075e",
+    "hand": "right",
+    "move": "move-palm-up-open",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 12.25,
+    "time": 32600.644859813085
+  },
+  {
+    "id": "bc3e1072-07e3-4e47-b881-95d687726743",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      -1,
+      1.7,
+      -1.5
+    ],
+    "step": 13,
+    "time": 34282.88785046729
+  },
+  {
+    "id": "89873c62-6ff3-4884-9166-af6441384c4d",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 14,
+    "time": 36525.878504672895
+  },
+  {
+    "id": "57f9487f-029e-4dc2-be0b-c7e84b698575",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 14.5,
+    "time": 37647.373831775694
+  },
+  {
+    "id": "2a662e77-1632-4193-910e-e2c32d454c7b",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 15,
+    "time": 38768.8691588785
+  },
+  {
+    "id": "eafa9194-d08f-4e6c-8656-f1f8f21eab2b",
+    "hand": "left",
+    "move": "pointing",
+    "position": [
+      1,
+      1.7,
+      -1.5
+    ],
+    "step": 15.5,
+    "time": 39890.36448598131
+  },
+  {
+    "id": "9303ce25-692b-469b-b52c-263615c708f0",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 16,
+    "time": 41011.85981308411
+  },
+  {
+    "id": "a8215cdf-eb0f-40fd-a7ee-2859b16cb254",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 16.5,
+    "time": 42133.35514018691
+  },
+  {
+    "id": "48ffed43-6e25-4140-af8c-7e87dffa4490",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 17,
+    "time": 43254.85046728972
+  },
+  {
+    "id": "e3ff87b7-e34f-42fd-9e63-c8090379d711",
+    "hand": "left",
+    "move": "pointing",
+    "position": [
+      1,
+      1.7,
+      -1.5
+    ],
+    "step": 17.5,
+    "time": 44376.345794392524
+  },
+  {
+    "id": "12ab6775-edf4-4554-a7db-f5c96d44003e",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 18,
+    "time": 45497.84112149532
+  },
+  {
+    "id": "e9b907fd-8a2b-4481-9eda-3c16dba8892d",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 18.5,
+    "time": 46619.33644859813
+  },
+  {
+    "id": "07cc5ae3-a1e4-48dc-b09a-86a4bc1e24cb",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 19,
+    "time": 47740.83177570093
+  },
+  {
+    "id": "b83d9249-aca0-4197-81b1-2e1522ca995d",
+    "hand": "left",
+    "move": "pointing",
+    "position": [
+      1,
+      1.7,
+      -1.5
+    ],
+    "step": 19.5,
+    "time": 48862.327102803734
+  },
+  {
+    "id": "96e652f9-f522-4dca-b16a-17e9366a559d",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 20,
+    "time": 49983.82242990654
+  },
+  {
+    "id": "dd8e4c30-305c-4218-a479-04c18e82ffa2",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 20.5,
+    "time": 51105.31775700934
+  },
+  {
+    "id": "efe345b8-45b1-48dc-b1b8-95971762244d",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 21,
+    "time": 52226.813084112146
+  },
+  {
+    "id": "e7e3325c-e1e3-4552-8168-28dfb14d21b6",
+    "hand": "left",
+    "move": "pointing",
+    "position": [
+      1,
+      1.7,
+      -1.5
+    ],
+    "step": 21.5,
+    "time": 53348.308411214944
+  },
+  {
+    "id": "c2adf6e9-141a-417e-a31c-4ea39d3c1af4",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 22,
+    "time": 54469.80373831775
+  },
+  {
+    "id": "f27faa9f-ee2b-49aa-86c9-fc3b249e5c2e",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 22.5,
+    "time": 55591.29906542056
+  },
+  {
+    "id": "70b74c20-5ef0-4b4e-9269-fcf5d058bef5",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 23,
+    "time": 56712.794392523356
+  },
+  {
+    "id": "8c619a44-4b1d-4d8a-8fe3-558c5931697c",
+    "hand": "right",
+    "move": "move-palm-up-open",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 24.25,
+    "time": 59516.53271028037
+  },
+  {
+    "id": "61908bd2-25ed-49a1-aca4-0ecb933ec51c",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 26,
+    "time": 63441.766355140186
+  },
+  {
+    "id": "d6d132d2-9e3a-459a-8128-d48ef8b26d82",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 26.5,
+    "time": 64563.261682242985
+  },
+  {
+    "id": "33e2f31d-5366-4ce6-89ba-da0d6dcf71c0",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 27,
+    "time": 65684.75700934579
+  },
+  {
+    "id": "673c86cc-21ee-4e92-b813-43ac8d7a5096",
+    "hand": "right",
+    "move": "move-palm-up-open",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 28.75,
+    "time": 69609.9906542056
+  },
+  {
+    "id": "9d090d63-38cf-4def-824e-7372cddddb29",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 30,
+    "time": 72413.72897196261
+  },
+  {
+    "id": "c96f77fd-7805-4857-893c-e73991d44c7c",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 30.5,
+    "time": 73535.22429906542
+  },
+  {
+    "id": "feb43e3c-db32-4202-9bd8-78888ed7cc86",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 31,
+    "time": 74656.71962616823
+  },
+  {
+    "id": "7af1bd7a-969a-4249-b129-33286b65be0e",
+    "hand": "right",
+    "move": "move-palm-up-open",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 32.5,
+    "time": 78021.20560747663
+  },
+  {
+    "id": "84ae8f99-185a-45db-bf34-395a2bf91ac8",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 33,
+    "time": 79142.70093457944
+  },
+  {
+    "id": "b83bb1f2-e2ba-4174-8af4-4f305450436b",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 33.5,
+    "time": 80264.19626168224
+  },
+  {
+    "id": "492314dc-6269-41a6-9e06-c80122f3b684",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 34,
+    "time": 81385.69158878505
+  },
+  {
+    "id": "675d283b-5a45-40e6-999b-7b6f2d4baa41",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 35,
+    "time": 83628.68224299065
+  },
+  {
+    "id": "7798ba38-878d-430a-9041-16492ebb6612",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 36.5,
+    "time": 86993.16822429906
+  },
+  {
+    "id": "5fa043d3-274b-4974-87ca-a83ab0220246",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 37,
+    "time": 88114.66355140186
+  },
+  {
+    "id": "9222d615-c133-48a0-95e9-440c896e46b3",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 38,
+    "time": 90357.65420560747
+  },
+  {
+    "id": "5bb8b7d3-0f3c-4042-8cc8-181a31057b6c",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 38.5,
+    "time": 91479.14953271027
+  },
+  {
+    "id": "da644321-3a15-46b1-8275-2a385291b045",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 39,
+    "time": 92600.64485981308
+  },
+  {
+    "id": "1e11887f-5f28-4121-a3e5-a4c7bf1428f0",
+    "hand": "right",
+    "move": "move-baton-down",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 40,
+    "time": 94843.63551401868
+  },
+  {
+    "id": "e1ca876e-0ace-4615-9496-e3cfd60bd47e",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 40.5,
+    "time": 95965.13084112148
+  },
+  {
+    "id": "672f834e-1669-4e71-959d-61b9fc42a503",
+    "hand": "right",
+    "move": "move-baton-up",
+    "position": [
+      0,
+      1.7,
+      -1.5
+    ],
+    "step": 41,
+    "time": 97086.62616822429
+  }
+]

@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import { useState } from "react";
 import { TimelineEvent } from "../contexts";
-import { differenceInMilliseconds } from "date-fns";
+import { differenceInMilliseconds, format } from "date-fns";
 
 export function useAvaibilityState(
   event: TimelineEvent,
@@ -23,6 +23,8 @@ export function useAvaibilityState(
         differenceInMilliseconds(event.time, now) <= availableTime
       );
     } else {
+      if (event.id === "1")
+        console.log(event.id, ": ", format(now, "HH:mm:ss.SSS"));
       const shouldRender =
         differenceInMilliseconds(now, event.time) < shutdownTime;
       const shouldBeAvailable =

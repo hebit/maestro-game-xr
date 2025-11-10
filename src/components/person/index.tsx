@@ -9,15 +9,15 @@ export function Person({ variant }: { variant: "left" | "right" | "center" }) {
   const variants = {
     left: {
       position: [-2.4, 0, -4] as const,
-      rotation: [0, -Math.PI / 2 + Math.PI / 4, 0] as const,
+      rotation: [0, Math.PI / 4, 0] as const,
     },
     right: {
       position: [2.4, 0, -4] as const,
-      rotation: [0, -Math.PI / 2 - Math.PI / 4, 0] as const,
+      rotation: [0, -Math.PI / 4, 0] as const,
     },
     center: {
       position: [0, 0, -5] as const,
-      rotation: [0, -Math.PI / 2, 0] as const,
+      rotation: [0, 0, 0] as const,
     },
   };
 
@@ -29,15 +29,7 @@ export function Person({ variant }: { variant: "left" | "right" | "center" }) {
 
   const mixer = useRef<THREE.AnimationMixer | null>(null);
 
-  useEffect(() => {
-    if (fbx.animations && fbx.animations.length > 0) {
-      mixer.current = new THREE.AnimationMixer(fbx);
-      const action = mixer.current.clipAction(fbx.animations[0]);
-      setTimeout(() => {
-        action.play();
-      }, Math.random() * 1000);
-    }
-  }, [fbx]);
+  useEffect(() => {}, [fbx]);
 
   useFrame((_, delta) => {
     mixer.current?.update(delta);
@@ -45,7 +37,7 @@ export function Person({ variant }: { variant: "left" | "right" | "center" }) {
 
   return (
     <>
-      <group {...positionProps} scale={0.002}>
+      <group {...positionProps} scale={0.015}>
         <primitive object={fbx} />
       </group>
 
