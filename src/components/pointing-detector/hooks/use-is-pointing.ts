@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useXR, useXRInputSourceState, useXRSpace } from "@react-three/xr";
-import { usePoseName } from "../../../hooks/use-pose-name";
 
 export function usePointinDetector(
   isAvailable: boolean,
@@ -10,14 +9,12 @@ export function usePointinDetector(
 ) {
   const [isPointing, setIsPointing] = useState(false);
 
-  const poseName = usePoseName("left");
   const { session } = useXR();
   const referenceSpace = useXRSpace();
   const sourceState = useXRInputSourceState("hand", "left");
 
   useFrame((_, __, frame) => {
     if (!session) return;
-    if (poseName !== "pointing") return;
     if (!isAvailable) return;
 
     const inputSource = sourceState?.inputSource;
