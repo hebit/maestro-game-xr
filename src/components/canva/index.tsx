@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useTimeline } from "../../contexts";
 import { useFrame } from "@react-three/fiber";
 import { addSeconds, subSeconds } from "date-fns";
@@ -7,11 +7,14 @@ import { GestureDetector } from "../gesture-detector";
 import { HandRay } from "../hand-ray";
 import { BothGestureDetector } from "../both-gesture-detector";
 import { PalmDetector } from "../palm-detector";
+import { Button } from "../ui";
+import { useNavigate } from "react-router";
 
 export function Canva() {
   const { events } = useTimeline();
 
   const [candidateEvents, setCandidateEvents] = useState<typeof events>([]);
+  const navigate = useNavigate();
 
   useFrame(() => {
     const now = new Date();
@@ -48,10 +51,22 @@ export function Canva() {
 
   return (
     <>
-      <ambientLight />
+      <ambientLight intensity={1} />
+      <ambientLight position={[0, 0, -1]} intensity={1} />
+      <directionalLight position={[3, 4, 5]} intensity={0.3} />
+      <directionalLight position={[-3, 2, -2]} intensity={0.3} />
       {renderEvents()}
       <HandRay side="left" />
       <HandRay side="right" />
+      <Suspense>
+        <group rotation={[0, Math.PI, 0]}>
+          <Button
+            label="Voltar"
+            position={[0, 1.2, -1]}
+            onClick={() => navigate("/maestro-game-xr/lobby")}
+          />
+        </group>
+      </Suspense>
     </>
   );
 }
