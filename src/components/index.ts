@@ -7,3 +7,4 @@ export * from "./ui";
 export * from "./person";
 export * from "./circle";
 export * from "./both-gesture-detector";
+export * from "./score-board";

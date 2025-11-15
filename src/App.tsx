@@ -8,7 +8,7 @@ import {
 import { useEffect } from "react";
 import { Skybox } from "./components";
 import { BrowserRouter, Route, Routes } from "react-router";
-import { RoundPage, HomePage, LobbyPage } from "./pages";
+import { RoundPage, HomePage, LobbyPage, FinishPage } from "./pages";
 
 const store = createXRStore({
   // hand: CustomHand,
@@ -63,6 +63,7 @@ export default function App() {
                   <Route index Component={HomePage} />
                   <Route path="lobby" Component={LobbyPage} />
                   <Route path="play/:id" Component={RoundPage} />
+                  <Route path="finish/:score" Component={FinishPage} />
                 </Route>
               </Routes>
             </BrowserRouter>
