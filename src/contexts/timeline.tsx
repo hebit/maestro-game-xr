@@ -9,7 +9,8 @@ import {
   useState,
 } from "react";
 
-import * as Tone from "tone";
+import { Howl } from "howler";
+import { useNavigate } from "react-router";
 
 export function generateEventIdUUID(): string {
   return crypto.randomUUID();
@@ -54,7 +55,10 @@ export const TimelineContext = createContext({
   score: 0,
   fails: [] as TimelineEvent["id"][],
   songId: generateEventIdUUID() as string,
+  paused: false,
   matchEvent(_event: TimelineEvent, _rating?: number) {},
+  pause() {},
+  resume() {},
 });
 
 export function useTimeline() {
@@ -87,7 +91,7 @@ const eventsBySong = {
   ["farao" as string]: [
     {
       move: "move-baton-up",
-      id: "1",
+      id: generateEventIdUUID(),
       step: 1.25,
       hand: "right",
       position: bandComposition["farao"].general,
@@ -932,23 +936,30 @@ interface TimelineContextProviderProps extends React.PropsWithChildren {
   songId?: string;
 }
 
-const player = new Tone.Player({
-  url: "/maestro-game-xr/farao.mp3",
-  autostart: false,
-}).toDestination();
+const player = new Howl({
+  src: ["/maestro-game-xr/farao.mp3"],
+  html5: true,
+  volume: 0.1,
+});
 
 export function TimelineContextProvider({
   songId = "farao",
   children,
 }: TimelineContextProviderProps) {
-  const startTime = useMemo(() => new Date(), []);
+  const [startTime, setStartTime] = useState<Date>();
+
+  const navigate = useNavigate();
 
   const events = useMemo(() => {
+    if (!startTime) return [] as TimelineEvent[];
+
     function calculateStepTime(step: number) {
       const bpm = songConfig[songId].bpm;
       const secondsPerBeat = 60 / bpm;
       return (step - 1) * (secondsPerBeat * 4) * 1000;
     }
+
+    // console.log("startTime", format(startTime, "HH:mm:ss.SSS"));
 
     return eventsBySong[songId].map((event) => {
       const eventRelativeTime = calculateStepTime(event.step);
@@ -962,6 +973,7 @@ export function TimelineContextProvider({
   }, [startTime]);
 
   const [score, setScore] = useState<number>(0);
+  const [paused, setPaused] = useState<boolean>(false);
 
   const matchEvent = useCallback(
     (event: TimelineEvent, rating: number | undefined = 1) => {
@@ -972,10 +984,43 @@ export function TimelineContextProvider({
   );
 
   useEffect(() => {
-    console.log("AUDIO PLAY");
-    console.log("START: ", format(new Date(), "HH:mm:ss.SSS"));
-    player.start();
+    events.forEach((event) => {
+      if (event.move !== "move-palm-up-open") return;
+      console.log(`${event.move} at ${format(event.time, "HH:mm:ss.SSS")}`);
+    });
+  }, [events]);
+
+  useEffect(() => {
+    player.once("play", () => {
+      const actualStartTime = new Date();
+      setStartTime(actualStartTime);
+      console.log(
+        "SONG ACTUALLY STARTED:",
+        format(actualStartTime, "HH:mm:ss.SSS")
+      );
+    });
+
+    player.play();
+    return () => {
+      player.stop();
+    };
   }, []);
+
+  useEffect(() => {
+    const callback = () => {
+      console.log("STOP:", format(new Date(), "HH:mm:ss.SSS"));
+      setTimeout(() => {
+        navigate("/maestro-game-xr/finish/" + score);
+      }, 2_000);
+    };
+    player.on("end", callback);
+
+    return () => {
+      player.off("end", callback);
+    };
+  }, [score]);
+
+  if (!startTime) return null;
 
   return (
     <TimelineContext.Provider
@@ -985,6 +1030,15 @@ export function TimelineContextProvider({
         events,
         fails: [],
         score,
+        paused,
+        pause() {
+          setPaused(true);
+          player.pause();
+        },
+        resume() {
+          setPaused(false);
+          player.play();
+        },
         matchEvent,
       }}
     >
