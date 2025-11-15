@@ -41,9 +41,9 @@ export function RoundPage() {
       {started ? (
         <>
           <TimelineContextProvider>
-            <Person variant="center" />
-            <Person variant="right" />
-            <Person variant="left" />
+            <Person position="center" variant="guitar" />
+            <Person position="right" variant="drum" />
+            <Person position="left" variant="sax" />
             <Canva />
           </TimelineContextProvider>
         </>
