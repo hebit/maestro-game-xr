@@ -5,6 +5,7 @@ import { TimelineEvent, useTimeline } from "../../contexts";
 import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 
 import { Tile } from "../tile";
+import { format, subMilliseconds } from "date-fns";
 
 export function PalmDetector({
   event,
@@ -15,13 +16,14 @@ export function PalmDetector({
   const gestureDirection = useGestureDirection(event.hand);
   const { matchEvent } = useTimeline();
 
-  const duration = 2_400;
+  const duration = 1_600;
+  const preDuration = 2_000;
 
   const { isAvailable, isVisible, isOff } = useAvaibilityState(
     event,
-    3_400,
+    preDuration,
     300,
-    duration + 600,
+    duration,
     duration
   );
 
@@ -72,6 +74,12 @@ export function PalmDetector({
   useEffect(() => {
     if (matchingTime < 1_000) return;
 
+    if (event.move.includes("down")) {
+      window.pauseAnimations?.();
+    } else {
+      window.resumeAnimations?.();
+    }
+
     if (!matched) {
       setMatched(true);
       matchEvent(event, 1);
@@ -90,6 +98,22 @@ export function PalmDetector({
     return "white";
   }, [isOff, matched, matchingTime]);
 
+  const startTime = useMemo(
+    () => subMilliseconds(event.time, preDuration),
+    [event.time, preDuration]
+  );
+
+  /* useEffect(() => {
+    if (expectedDirection === "up") {
+      console.log(
+        "PalmDetector - event.time:",
+        format(event.time, "HH:mm:ss.SSS"),
+        "startTime:",
+        format(startTime, "HH:mm:ss.SSS")
+      );
+    }
+  }, []); */
+
   const panelOpacity = 0.2;
 
   if (!isVisible) return null;
@@ -100,8 +124,10 @@ export function PalmDetector({
         <Tile
           xPosition={event.position[0] / 2}
           duration={duration}
+          preDuration={preDuration}
           direction={expectedDirection}
           color={color}
+          startTime={startTime}
           panelOpacity={panelOpacity}
         />
       )}

@@ -1,15 +1,16 @@
 import { useFrame } from "@react-three/fiber";
-import { differenceInMilliseconds } from "date-fns";
-import { useMemo, useRef } from "react";
+import { differenceInMilliseconds, format } from "date-fns";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 export function Tile({
   direction = "up",
   color,
-  preDuration = 2_000,
+  preDuration = 1_200,
   duration = 3_000,
   xPosition = 0,
   panelOpacity = 0.2,
+  startTime,
 }: {
   direction: "up" | "down";
   color?: string;
@@ -17,16 +18,18 @@ export function Tile({
   preDuration?: number;
   xPosition?: number;
   panelOpacity?: number;
+  startTime: Date;
 }) {
   const group = useRef<THREE.Group>(null);
   const finishLineRef = useRef<THREE.Group>(null);
   const tileRef = useRef<THREE.Mesh>(null);
   const offSetControlRef = useRef<THREE.Group>(null);
+  const animationStartedRef = useRef(false);
+  const animationStartTimeRef = useRef<Date | null>(null);
 
-  const titleSize = (duration / 1_000) * 0.5;
+  const titleSize = 2.0;
   const base = new THREE.Vector3(0, 1.2 - 0.14, -5.5);
   const progressed = useRef(0);
-  const startTime = useMemo(() => new Date(), []);
 
   const distance = 4.0;
   const finishLinePosition = useMemo(() => {
@@ -44,32 +47,120 @@ export function Tile({
     left: [0, 0, Math.PI / 2],
   };
   const arrowRotation = arrowRotations[direction] || arrowRotations.up;
+  const preShift = 0;
+
+  useEffect(() => {
+    console.log(
+      "Tile mounted for direction",
+      direction,
+      "at",
+      format(new Date(), "HH:mm:ss.SSS"),
+      "startTime:",
+      format(startTime, "HH:mm:ss.SSS")
+    );
+  }, []);
 
   useFrame(() => {
-    /*   console.log({
-      finishLinePosition: finishLinePosition.toArray().toString(),
-      finishArrowPosition: finishArrowPosition.toArray().toString(),
-      planePosition: group.current?.position.toArray().toString(),
-    }); */
     if (group.current) {
-      const elapsedTime = differenceInMilliseconds(new Date(), startTime);
-      progressed.current = Math.min(elapsedTime / (preDuration + duration), 1);
-      const zDistance = (finishArrowPosition.z - base.z) * progressed.current;
+      const now = new Date();
 
-      group.current.position.copy(base).add(new THREE.Vector3(0, 0, zDistance));
-
-      const currentZ = group.current.position.z;
-      const zCutDistance = finishLinePosition.z - currentZ;
-
-      if (zCutDistance <= 0 && tileRef.current && offSetControlRef.current) {
-        const newHeight = Math.max(0, titleSize - Math.abs(zCutDistance));
-        // console.log(newHeight);
-        offSetControlRef.current.position.z = -Math.abs(zCutDistance) / 2;
-        tileRef.current.geometry = new THREE.BoxGeometry(
-          finishLineWidth,
-          newHeight,
-          0.001
+      if (!animationStartedRef.current && now >= startTime) {
+        animationStartedRef.current = true;
+        animationStartTimeRef.current = now;
+        console.log(
+          "Animation started for direction",
+          direction,
+          "at",
+          format(now, "HH:mm:ss.SSS")
         );
+      }
+
+      if (!animationStartedRef.current) {
+        group.current.position.copy(base);
+        return;
+      }
+
+      const elapsedTime = differenceInMilliseconds(
+        now,
+        animationStartTimeRef.current!
+      );
+
+      if (elapsedTime < preDuration + preShift) {
+        progressed.current = Math.min(
+          elapsedTime / (preDuration + preShift),
+          1
+        );
+        const zDistance = (finishLinePosition.z - base.z) * progressed.current;
+
+        group.current.position
+          .copy(base)
+          .add(new THREE.Vector3(0, 0, zDistance));
+
+        if (
+          direction === "up" &&
+          progressed.current >= 0.99 &&
+          progressed.current < 1
+        ) {
+          console.log(
+            `Phase 1 almost complete (${(progressed.current * 100).toFixed(
+              2
+            )}%)`,
+            "at",
+            format(now, "HH:mm:ss.SSS"),
+            "elapsed:",
+            elapsedTime,
+            "ms"
+          );
+        }
+      }
+    }
+  });
+
+  useFrame(() => {
+    if (
+      group.current &&
+      animationStartedRef.current &&
+      animationStartTimeRef.current
+    ) {
+      const now = new Date();
+      const elapsedTime = differenceInMilliseconds(
+        now,
+        animationStartTimeRef.current
+      );
+
+      if (elapsedTime >= preDuration + preShift) {
+        progressed.current = Math.min(
+          (elapsedTime - preDuration - preShift) / duration,
+          1
+        );
+        const zDistance =
+          (finishArrowPosition.z - finishLinePosition.z) * progressed.current;
+
+        group.current.position
+          .copy(finishLinePosition)
+          .add(new THREE.Vector3(0, 0, zDistance));
+
+        const currentZ = group.current.position.z;
+        const zCutDistance = finishLinePosition.z - currentZ;
+
+        if (zCutDistance <= 0 && tileRef.current && offSetControlRef.current) {
+          if (elapsedTime - preDuration < 50 && direction === "up") {
+            console.log(
+              "== tile passed the finish line ==",
+              format(now, "HH:mm:ss.SSS"),
+              "elapsed since animation start:",
+              elapsedTime,
+              "ms"
+            );
+          }
+          const newHeight = Math.max(0, titleSize - Math.abs(zCutDistance));
+          offSetControlRef.current.position.z = -Math.abs(zCutDistance) / 2;
+          tileRef.current.geometry = new THREE.BoxGeometry(
+            finishLineWidth,
+            newHeight,
+            0.001
+          );
+        }
       }
     }
   });
