@@ -19,7 +19,7 @@ export function ScoreBoard({ score, position }: ScoreBoardProps) {
     from: { scale: 0, rotation: [0, -Math.PI / 4, 0] },
     to: { scale: 1, rotation: [0, 0, 0] },
     config: config.wobbly,
-    delay: 4200,
+    delay: 200,
   });
 
   const phrase = useMemo(() => {

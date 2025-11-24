@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import { differenceInMilliseconds, format } from "date-fns";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 export function Tile({
@@ -24,8 +24,6 @@ export function Tile({
   const finishLineRef = useRef<THREE.Group>(null);
   const tileRef = useRef<THREE.Mesh>(null);
   const offSetControlRef = useRef<THREE.Group>(null);
-  const animationStartedRef = useRef(false);
-  const animationStartTimeRef = useRef<Date | null>(null);
 
   const titleSize = 2.0;
   const base = new THREE.Vector3(0, 1.2 - 0.14, -5.5);
@@ -47,43 +45,13 @@ export function Tile({
     left: [0, 0, Math.PI / 2],
   };
   const arrowRotation = arrowRotations[direction] || arrowRotations.up;
-  const preShift = 0;
-
-  useEffect(() => {
-    console.log(
-      "Tile mounted for direction",
-      direction,
-      "at",
-      format(new Date(), "HH:mm:ss.SSS"),
-      "startTime:",
-      format(startTime, "HH:mm:ss.SSS")
-    );
-  }, []);
+  const preShift = 350;
 
   useFrame(() => {
     if (group.current) {
       const now = new Date();
 
-      if (!animationStartedRef.current && now >= startTime) {
-        animationStartedRef.current = true;
-        animationStartTimeRef.current = now;
-        console.log(
-          "Animation started for direction",
-          direction,
-          "at",
-          format(now, "HH:mm:ss.SSS")
-        );
-      }
-
-      if (!animationStartedRef.current) {
-        group.current.position.copy(base);
-        return;
-      }
-
-      const elapsedTime = differenceInMilliseconds(
-        now,
-        animationStartTimeRef.current!
-      );
+      const elapsedTime = differenceInMilliseconds(now, startTime);
 
       if (elapsedTime < preDuration + preShift) {
         progressed.current = Math.min(
@@ -117,16 +85,9 @@ export function Tile({
   });
 
   useFrame(() => {
-    if (
-      group.current &&
-      animationStartedRef.current &&
-      animationStartTimeRef.current
-    ) {
+    if (group.current) {
       const now = new Date();
-      const elapsedTime = differenceInMilliseconds(
-        now,
-        animationStartTimeRef.current
-      );
+      const elapsedTime = differenceInMilliseconds(now, startTime);
 
       if (elapsedTime >= preDuration + preShift) {
         progressed.current = Math.min(
@@ -145,13 +106,13 @@ export function Tile({
 
         if (zCutDistance <= 0 && tileRef.current && offSetControlRef.current) {
           if (elapsedTime - preDuration < 50 && direction === "up") {
-            console.log(
+            /*    console.log(
               "== tile passed the finish line ==",
               format(now, "HH:mm:ss.SSS"),
               "elapsed since animation start:",
               elapsedTime,
               "ms"
-            );
+            ); */
           }
           const newHeight = Math.max(0, titleSize - Math.abs(zCutDistance));
           offSetControlRef.current.position.z = -Math.abs(zCutDistance) / 2;
