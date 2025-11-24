@@ -5,7 +5,7 @@ import { TimelineEvent, useTimeline } from "../../contexts";
 import { useAvaibilityState } from "../../hooks/use-avaibility-state";
 
 import { Tile } from "../tile";
-import { format, subMilliseconds } from "date-fns";
+import { subMilliseconds } from "date-fns";
 
 export function PalmDetector({
   event,
@@ -26,14 +26,6 @@ export function PalmDetector({
     duration,
     duration
   );
-
-  /*   useEffect(() => {
-    console.log({
-      isAvailable,
-      isVisible,
-      isOff,
-    });
-  }, [isAvailable, isVisible, isOff]); */
 
   const [matchingTime, setMatchingTime] = useState(0);
   const [matching, setMatching] = useState(false);
@@ -57,7 +49,6 @@ export function PalmDetector({
 
     if (executedMove === event.move) {
       setMatching(true);
-      // matchEvent(event, 1);
     }
   }, [executedMove, event.move, isAvailable]);
 
@@ -75,8 +66,10 @@ export function PalmDetector({
     if (matchingTime < 1_000) return;
 
     if (event.move.includes("down")) {
+      // @ts-ignore
       window.pauseAnimations?.();
     } else {
+      // @ts-ignore
       window.resumeAnimations?.();
     }
 
