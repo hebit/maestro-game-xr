@@ -1,29 +1,15 @@
-# Maestro Game WebXR
+# Game WebXR
 
-### Planejamento (Rascunho)
+![header](docs/image-4.png)
 
-### Setup Ambiente XR
+### Setup Projeto
 
-Configurar emulador e integração com o projeto para detectar e responder bem às interações com mãos através do rasteamento de sensores do device XR (inicialmente através do emulador)
+1. Obtenha o emulador [iwer](https://github.com/meta-quest/immersive-web-emulation-runtime/blob/main/devui/README.md) instalado no seu browser Chrome.
+2. Necessário ter Node v20+ (com NPM)
+3. Faça clone do projeto: `git clone https://github.com/pmndrs/xr.git`
+4. Execute `npm install` na pasta do projeto, em seguida 'npm run dev' para iniciar em modo desenvolimento
+5. Com o browser aberto, ao acessar o DevTools, utilizar atalho: `Window/Command + Alt/Option + E` para inicialziar o emulador VR/AR.
 
-![alt text](docs/image-1.png)
+### Demo
 
-### Desenho de traçado
-
-Utilizar uma parede invisível há poucos metros do usuário para ser nosso "canva" que obtem todo o traçado feito pela mão do usuário (bastão do maestro).
-
-> **TODO**: pesquisar formas eficiente de registrar esses pontos do traçados
-
-![alt text](docs/image-2.png)
-
-### Diff do Traçado
-
-Encontrar a diferença entre o traçado ideal e o feito pelo usuário; Comparar, calcular e categorizar essa diferença.
-
-> **TODO**: pesquisar formas eficiente de comparar os traçados
-
-![alt text](docs/image-3.png)
-
-### Pontuação
-
-> ...
+Usando um headset de realidade virtual, é possível acessar uma demo do projeto no [github pages](https://hebit.github.io/maestro-game-xr/).
