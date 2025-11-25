@@ -1,6 +1,6 @@
 # Game WebXR
 
-![header](docs/image-4.png)
+![header](docs/image-5.png)
 
 ### Setup Projeto
 
