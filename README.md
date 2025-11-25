@@ -1,6 +1,6 @@
 # Game WebXR
 
-![header](docs/image-5.png)
+![header](https://hebit.github.io/maestro-game-xr/header.png)
 
 ### Setup Projeto
 
