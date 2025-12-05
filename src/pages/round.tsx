@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import { TimelineContextProvider } from "../contexts";
 import { Canva, Person } from "../components";
 import { Text } from "@react-three/drei";
+import { useParams } from "react-router";
 
 export function RoundPage() {
   const [ms, setMs] = useState<number>(5_000);
+
+  const { songId } = useParams();
 
   const handState = useXRInputSourceState("hand", "right");
   const inputSource = handState?.inputSource;
@@ -40,7 +43,7 @@ export function RoundPage() {
     <>
       {started ? (
         <>
-          <TimelineContextProvider>
+          <TimelineContextProvider songId={songId}>
             <Person position="center" variant="guitar" />
             <Person position="right" variant="drum" />
             <Person position="left" variant="sax" />

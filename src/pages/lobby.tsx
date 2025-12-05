@@ -7,9 +7,16 @@ export function LobbyPage() {
   return (
     <>
       <Button
-        position={[0, 1.0, -2]}
+        position={[-1, 1.0, -2]}
         label={"FARAO"}
         onClick={() => navigate("/maestro-game-xr/play/farao")}
+      />
+      <Button
+        position={[1.5, 1.0, -2]}
+        label={"THEY DONT CARE ABOUT US"}
+        onClick={() =>
+          navigate("/maestro-game-xr/play/they-dont-care-about-us")
+        }
       />
     </>
   );

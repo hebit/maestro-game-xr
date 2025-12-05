@@ -76,10 +76,20 @@ const songConfig = {
     bpm: 107,
     startTime: 7_367,
   },
+  ["they-dont-care-about-us" as string]: {
+    bpm: 90,
+    startTime: 10_448,
+  },
 };
 
 const bandComposition = {
   ["farao"]: {
+    sax: presetPositions.right,
+    guitar: presetPositions.left,
+    drum: presetPositions.middle,
+    general: presetPositions.middle,
+  },
+  ["they-dont-care-about-us"]: {
     sax: presetPositions.right,
     guitar: presetPositions.left,
     drum: presetPositions.middle,
@@ -820,7 +830,7 @@ const eventsBySong = {
       id: generateEventIdUUID(),
       step: 57.0,
       hand: "left",
-      position: bandComposition["farao"].guitar,
+      position: bandComposition["farao"].general,
     },
 
     {
@@ -930,17 +940,168 @@ const eventsBySong = {
       position: bandComposition["farao"].general,
     },
   ] as Omit<TimelineEvent, "time">[],
+  ["they-dont-care-about-us" as string]: [
+    ...createIntroSampleTheyDontCareAboutUs(1),
+    ...createIntroSampleTheyDontCareAboutUs(1.5),
+    ...createIntroSampleTheyDontCareAboutUs(2),
+    ...createIntroSampleTheyDontCareAboutUs(2.5),
+    ...createIntroSampleTheyDontCareAboutUs(3),
+    ...createIntroSampleTheyDontCareAboutUs(3.5),
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 4.125,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 4.75,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 5.125,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 5.75,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
+
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 6.125,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 6.75,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
+    /* {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 7.125,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].guitar,
+    },
+    {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: 7.75,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    }, */
+
+    {
+      move: "move-palm-up-open",
+      id: generateEventIdUUID(),
+      step: 7.25,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
+
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 8.75,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].guitar,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 9.0,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
+    {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: 9.125,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].guitar,
+    },
+  ],
 };
+
+function createIntroSampleTheyDontCareAboutUs(step: number) {
+  return [
+    /* {
+      move: "move-baton-up",
+      id: generateEventIdUUID(),
+      step: step,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    }, */
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: step + 0.125,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
+    /*  {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: step + 0.125,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].sax,
+    }, */
+    //
+    /*     {
+      move: "pointing",
+      id: generateEventIdUUID(),
+      step: step + 0.25,
+      hand: "left",
+      position: bandComposition["they-dont-care-about-us"].guitar,
+    },
+
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: step + 0.5,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: step + 0.625,
+      hand: "right",
+      position: bandComposition["they-dont-care-about-us"].general,
+    }, */
+  ];
+}
 
 interface TimelineContextProviderProps extends React.PropsWithChildren {
   songId?: string;
 }
 
-const player = new Howl({
-  src: ["/maestro-game-xr/farao.mp3"],
-  html5: true,
-  volume: 0.1,
-});
+const player = {
+  ["farao" as string]: new Howl({
+    src: ["/maestro-game-xr/farao.mp3"],
+    html5: true,
+    volume: 0.1,
+  }),
+  ["they-dont-care-about-us" as string]: new Howl({
+    src: ["/maestro-game-xr/they-dont-care-about-us.mp3"],
+    html5: true,
+    volume: 0.1,
+  }),
+};
 
 export function TimelineContextProvider({
   songId = "farao",
@@ -991,7 +1152,7 @@ export function TimelineContextProvider({
   }, [events]);
 
   useEffect(() => {
-    player.once("play", () => {
+    player[songId].once("play", () => {
       const actualStartTime = new Date();
       setStartTime(actualStartTime);
       console.log(
@@ -1000,9 +1161,9 @@ export function TimelineContextProvider({
       );
     });
 
-    player.play();
+    player[songId].play();
     return () => {
-      player.stop();
+      player[songId].stop();
     };
   }, []);
 
@@ -1013,10 +1174,10 @@ export function TimelineContextProvider({
         navigate("/maestro-game-xr/finish/" + score);
       }, 2_000);
     };
-    player.on("end", callback);
+    player[songId].on("end", callback);
 
     return () => {
-      player.off("end", callback);
+      player[songId].off("end", callback);
     };
   }, [score]);
 
@@ -1033,11 +1194,11 @@ export function TimelineContextProvider({
         paused,
         pause() {
           setPaused(true);
-          player.pause();
+          player[songId].pause();
         },
         resume() {
           setPaused(false);
-          player.play();
+          player[songId].play();
         },
         matchEvent,
       }}
