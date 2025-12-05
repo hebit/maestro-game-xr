@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { addSeconds, subSeconds } from "date-fns";
 import { PointingDetector } from "../pointing-detector";
 import { GestureDetector } from "../gesture-detector";
-import { HandRay } from "../hand-ray";
+// import { HandRay } from "../hand-ray";
 import { BothGestureDetector } from "../both-gesture-detector";
 import { PalmDetector } from "../palm-detector";
 import { Button } from "../ui";
@@ -56,8 +56,8 @@ export function Canva() {
       <directionalLight position={[3, 4, 5]} intensity={0.3} />
       <directionalLight position={[-3, 2, -2]} intensity={0.3} />
       {renderEvents()}
-      <HandRay side="left" />
-      <HandRay side="right" />
+      {/*  <HandRay side="left" />
+      <HandRay side="right" /> */}
       <Suspense>
         <group rotation={[0, Math.PI, 0]}>
           <Button

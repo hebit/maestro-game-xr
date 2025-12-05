@@ -1009,7 +1009,7 @@ const eventsBySong = {
       move: "move-palm-up-open",
       id: generateEventIdUUID(),
       step: 7.25,
-      hand: "right",
+      hand: "left",
       position: bandComposition["they-dont-care-about-us"].general,
     },
 
@@ -1034,6 +1034,13 @@ const eventsBySong = {
       hand: "left",
       position: bandComposition["they-dont-care-about-us"].guitar,
     },
+    {
+      move: "move-baton-down",
+      id: generateEventIdUUID(),
+      step: 10.25,
+      hand: "both",
+      position: bandComposition["they-dont-care-about-us"].general,
+    },
   ],
 };
 
@@ -1049,7 +1056,7 @@ function createIntroSampleTheyDontCareAboutUs(step: number) {
     {
       move: "move-baton-down",
       id: generateEventIdUUID(),
-      step: step + 0.125,
+      step: step,
       hand: "right",
       position: bandComposition["they-dont-care-about-us"].general,
     },
