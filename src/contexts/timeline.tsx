@@ -625,13 +625,13 @@ const eventsBySong = {
       hand: "right",
       position: bandComposition["farao"].general,
     },
-    {
+    /*    {
       move: "move-baton-up",
       id: generateEventIdUUID(),
       step: 42.875,
       hand: "right",
       position: bandComposition["farao"].general,
-    },
+    }, */
 
     {
       move: "pointing",
@@ -662,13 +662,13 @@ const eventsBySong = {
       hand: "right",
       position: bandComposition["farao"].general,
     },
-    {
+    /*   {
       move: "move-baton-up",
       id: generateEventIdUUID(),
       step: 43.875,
       hand: "right",
       position: bandComposition["farao"].general,
-    },
+    }, */
 
     {
       move: "pointing",
@@ -699,13 +699,13 @@ const eventsBySong = {
       hand: "right",
       position: bandComposition["farao"].general,
     },
-    {
+    /*  {
       move: "move-baton-up",
       id: generateEventIdUUID(),
       step: 44.875,
       hand: "right",
       position: bandComposition["farao"].general,
-    },
+    }, */
 
     {
       move: "move-baton-up",
@@ -807,13 +807,13 @@ const eventsBySong = {
       hand: "left",
       position: bandComposition["farao"].guitar,
     },
-    {
+    /*  {
       move: "move-baton-down",
       id: generateEventIdUUID(),
       step: 56.0,
       hand: "right",
       position: bandComposition["farao"].general,
-    },
+    }, */
 
     {
       move: "move-palm-up-open",
@@ -858,13 +858,13 @@ const eventsBySong = {
       hand: "left",
       position: bandComposition["farao"].guitar,
     },
-    {
+    /* {
       move: "move-baton-down",
       id: generateEventIdUUID(),
       step: 60.0,
       hand: "right",
       position: bandComposition["farao"].general,
-    },
+    }, */
 
     {
       move: "move-palm-up-open",
@@ -901,13 +901,13 @@ const eventsBySong = {
       hand: "left",
       position: bandComposition["farao"].guitar,
     },
-    {
+    /*  {
       move: "pointing",
       id: generateEventIdUUID(),
       step: 66.0,
       hand: "left",
       position: bandComposition["farao"].guitar,
-    },
+    }, */
     {
       move: "move-baton-down",
       id: generateEventIdUUID(),
