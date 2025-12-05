@@ -62,7 +62,7 @@ export default function App() {
                 <Route path="maestro-game-xr">
                   <Route index Component={HomePage} />
                   <Route path="lobby" Component={LobbyPage} />
-                  <Route path="play/:id" Component={RoundPage} />
+                  <Route path="play/:songId" Component={RoundPage} />
                   <Route path="finish/:score" Component={FinishPage} />
                 </Route>
               </Routes>
